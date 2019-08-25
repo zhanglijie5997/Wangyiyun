@@ -1,0 +1,133 @@
+$font-color: #c20c0c;
+.router-view {
+  .tabBar {
+    height: 70px;
+    background: #242424;
+    border-bottom: 0.5px solid #000;
+    // overflow: hidden;
+    box-sizing: border-box;
+    .navBar {
+      display: flex;
+      width: 1200px;
+      margin: 0 auto;
+      .logo {
+        background: url("../static/img/topbar.png") no-repeat;
+        background-position-x: 15px;
+        width: 157px;
+        line-height: 70px;
+        padding-right: 20px;
+        cursor: pointer;
+        a {
+          color: #fff;
+          text-decoration: none;
+        }
+      }
+
+      ul {
+        display: flex;
+        li {
+          // width: 94px;
+          line-height: 69px;
+          text-align: center;
+          position: relative;
+          &:hover {
+            background: #000;
+          }
+          .triangle {
+            width: 0;
+            height: 0;
+            // background: $font-color;
+            position: absolute;
+            bottom: 0;
+            left: calc(50% - 6px);
+            border: 6px;
+            border-style: solid;
+            border-color: transparent $font-color transparent transparent;
+            transform: rotate(90deg);
+          }
+          a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            em {
+              padding: 0 17px;
+            }
+          }
+          .hot {
+            position: absolute;
+            top: 20px;
+            right: -24px;
+            background: #c32c28;
+            color: #fff;
+            font-size: 12px;
+            height: 12px;
+            text-align: center;
+            line-height: 12px;
+            padding: 2px 6px;
+            border-radius: 13px;
+            transform: scale(0.8);
+          }
+        }
+      }
+
+      .makeCenter,
+      .makeCenterText {
+        transform: translate3d(84px, 30px, 0px);
+        color: #ccc;
+        font-size: 12px;
+      }
+      .makeCenterText {
+        text-decoration: none;
+        padding: 4px 14px;
+        border-radius: 32px;
+        border: 1px solid #cccccc61;
+        &:hover {
+            border-color: #fff;
+        }
+      }
+      
+    }
+  }
+  .bottomSolid {
+    width: 100%;
+    min-height: 5px;
+    background: $font-color;
+    font-size: 12px;
+    border-bottom: 1px solid #a40011;
+    ul {
+      display: flex;
+      width: 800px;
+      margin: 0 auto;
+      li {
+        height: 34px;
+        line-height: 34px;
+        margin: 0 17px 0 0;
+        a {
+          color: #fff;
+          font-size: 12px;
+          text-decoration: none;
+          padding: 2px 0px;
+          line-height: 21px;
+          em {
+            padding: 2px 13px;
+            border-radius: 10px;
+          }
+          &:hover {
+            background: #9b0909;
+            border-radius: 10px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.linkAddBg {
+  background: #000 !important;
+}
+.linkSecendAddBg {
+  background: #9b0909;
+}
+.hoverBorder {
+    border-color: #fff;
+}

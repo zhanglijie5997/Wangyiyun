@@ -1,0 +1,72 @@
+.login {
+  transform: translate3d(105px, 30px, 0px);
+  color: #787878;
+  font-size: 12px;
+  cursor: pointer;
+  position: relative;
+  em {
+    &:hover {
+      color: #999;
+    }
+    &:after {
+      content: "";
+      position: absolute;
+      border-left: 8px solid transparent;
+      border-bottom: 6px solid transparent;
+      border-right: 6px solid #787878;
+      transform: rotate(135deg);
+      right: -20px;
+      top: -1px;
+    }
+  }
+  .loginType{
+        z-index: 99;
+        position: absolute;
+        width: 158px;
+        top: 25px;
+        left: -55px;
+        border: 1px solid #202020;
+        box-shadow: 0 8px 24px 0 rgba(0,0,0,0.50);
+        border-radius: 4px;
+      ul {
+          display: block!important;
+          background: #333;
+          li {
+              color: #ccc;
+              height: 40px;
+              line-height: 40px!important;
+              border: 1px solid #353535;
+              border-width: 1px 0;
+              display: flex;
+              span:nth-child(1) {
+                  flex: 1
+              }
+              span:nth-child(2) {
+                  flex: 2;
+                  text-align: left;
+              }
+          }
+          &:hover {
+            background: #353535!important;
+          }
+      }
+      &::after {
+        content: "";
+        position: absolute;
+        border-left: 5px solid transparent;
+        border-bottom: 5px solid #333;
+        border-right: 5px solid transparent;
+        top: -4px;
+        left: calc(50% - 5px);
+        z-index: 99;
+    }
+  }
+  
+  .loginTypeShow {
+      display: block;
+  }
+  .loginTypeHide {
+      display: none;
+  }
+
+}
