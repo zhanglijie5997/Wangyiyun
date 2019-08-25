@@ -91,10 +91,16 @@ class LoginPopove extends React.Component {
                         <div className="registerOrMoreLoginBox">
                             {/*  */}
                             <span>
-                                {`< 其他登陆方式`}
+                                <a href="#">
+                                    {`< 其他登陆方式`}
+                                </a>
+                               
                             </span>
                             <span>
-                                没有帐号？去注册 >
+                                <a href="#">
+                                    没有帐号？去注册 >
+                                </a>
+                                
                             </span>
                         </div>
                     </div>

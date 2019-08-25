@@ -149,27 +149,39 @@
 
     // 底部注册其他登陆方式
     .registerOrMoreLogin {
-        width: 100%;
-        height: calc(100% - 225px - 38px);
-        background: #f7f7f7;
-        
-        .registerOrMoreLoginBox{
-            display: flex;
-            justify-content: space-between;
-            font-size: 12px;
-            line-height: 51px;
-            width: 480px;
-            margin: 0 auto;
-            span:nth-child(1) {
-                color: #0c72c3;
-                cursor: pointer;
+      width: 100%;
+      height: calc(100% - 225px - 38px);
+      background: #f7f7f7;
+
+      .registerOrMoreLoginBox {
+        display: flex;
+        justify-content: space-between;
+        font-size: 12px;
+        line-height: 51px;
+        width: 480px;
+        margin: 0 auto;
+        span {
+          a {
+            text-decoration: none;
+            &:hover {
+                text-decoration: underline;
             }
-            span:nth-child(2) {
-                color:#999;
-                cursor: pointer;
-            }
+          }
+          
         }
-        
+        span:nth-child(1) {
+          a {
+            color: #0c72c3;
+            cursor: pointer;
+          }
+        }
+        span:nth-child(2) {
+          a {
+            color: #999;
+            cursor: pointer;
+          }
+        }
+      }
     }
   }
 }

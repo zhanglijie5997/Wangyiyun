@@ -16,21 +16,22 @@ import "./Router.scss"
 
 import LoginPopove from '../components/Login/LoginPopove/LoginPopove';
 
-import { connect  } from "react-redux";
+import { connect } from "react-redux";
+import Storage from '../utils/Storage/Storage';
 
-const mapStateToProps = (state:any) => ({
+const mapStateToProps = (state: any) => ({
     showPopove: state.showPopove
 })
 
-class Router extends React.Component {    
+class Router extends React.Component {
     public state: IRouterState;
 
     constructor(props: any) {
         super(props);
 
         this.state = {
-            defaultName: 'findMusic',
-            findmusicLisDefaultName:'recommend'
+            defaultName: 'findmusic',
+            findmusicLisDefaultName: 'recommend'
         };
         this.changeRoute = this.changeRoute.bind(this);
         this.changeRouteFind = this.changeRouteFind.bind(this)
@@ -39,23 +40,57 @@ class Router extends React.Component {
      * 一级导航点击事件
      * @param name 一级导航name值
      */
-    public changeRoute = (name: string) => {
+    public changeRoute = (name: string, path: string) => {
+        // tslint:disable-next-line:no-console
+        console.log(path, 'path')
         this.setState({
             defaultName: name
-        })
+        });
+        // 将Link存本地
+        Storage.SessionStorage("path", name)
     }
 
     /**
      * 二级导航点击事件
      * @param name 二级导航样式
      */
-    public changeRouteFind = (name:string) => {
+    public changeRouteFind = (name: string) => {
         this.setState({
-            findmusicLisDefaultName:name
+            findmusicLisDefaultName: name
         })
     }
 
-    public UNSAFE_componentWillUpdate(nextProps:any,nextState:any) {
+    public async componentDidMount(): Promise<void> {
+        /* list.forEach((item: IRouterList, index: number) => {
+            if (location.pathname === item.to) {
+                this.setState({
+                    defaultName: item.classname
+                },() => {
+                    Storage.SessionStorage("path", item.classname)
+                })
+            }
+            
+
+
+
+
+
+            // tslint:disable-next-line:no-console
+            console.log(this.state, 'res')
+        }) */
+
+        if (Storage.GetSessionStorage("path")) {
+            this.setState({
+                defaultName: Storage.GetSessionStorage("path")
+            }, () => {
+                // tslint:disable-next-line:no-console
+                // console.log(this.state, '进入');
+
+            })
+        }
+    }
+
+    public UNSAFE_componentWillUpdate(nextProps: any, nextState: any) {
         // tslint:disable-next-line:no-console
         // console.log(nextProps, nextState,'props')
         // tslint:disable-next-line:no-string-literal
@@ -67,16 +102,18 @@ class Router extends React.Component {
     public render() {
         // Link 导航
         const routerLink = list.map((item: IRouterList, index: number) => {
+
+            let defaultName = this.state.defaultName;
+            defaultName = defaultName.replace(/\"/g, '');
             return (
                 // tslint:disable-next-line:jsx-no-lambda
-                <li key={index} onClick={() => this.changeRoute(item.classname)} className={[`${this.state.defaultName === item.classname ? 'linkAddBg':''}`,item.classname].join(' ')}>
+                <li key={index} onClick={() => this.changeRoute(item.classname, item.to)} className={[item.classname === defaultName ? 'linkAddBg' : '', item.classname].join(' ')}>
                     <Link to={item.to} className={item.classname}>
                         <em>{item.name}</em>
-                        
                     </Link>
-                    {this.state.defaultName === item.classname ? <div className="triangle" /> : null}
-                    { item.hot? <div className="hot">HOT</div> : null}
-                    
+                    {defaultName === item.classname ? <div className="triangle" /> : null}
+                    {item.hot ? <div className="hot">HOT</div> : null}
+
                 </li>
             )
         })
@@ -88,17 +125,19 @@ class Router extends React.Component {
             )
         })
         // 发现音乐二级路由
-        const findMusiceChild = FindMusicChild.map((item: IRouterList,index:number) => {
+        const findMusiceChild = FindMusicChild.map((item: IRouterList, index: number) => {
+            
             return (
                 // tslint:disable-next-line:jsx-no-lambda
                 <li key={index} onClick={() => this.changeRouteFind(item.classname)}>
                     <Link to={item.to} className={item.classname} >
-                        <em className={`${this.state.findmusicLisDefaultName === item.classname ? 'linkSecendAddBg':null}`}> {item.name}</em>
+                        
+                        <em className={`${this.state.findmusicLisDefaultName === item.classname ? 'linkSecendAddBg' : null}`}> {item.name}</em>
                     </Link>
                 </li>
             )
         })
-        
+
         return (
             <div className="router-view">
                 <BrowserRouter>
@@ -113,26 +152,26 @@ class Router extends React.Component {
                             {/* 搜索框 */}
                             <Seach />
                             <div className="makeCenter">
-                                <Link to='/' className="makeCenterText">
+                                <Link to='/MyMusic' className="makeCenterText">
                                     创作者中心
                                 </Link>
                             </div>
                             <Login />
                         </nav>
-                        
+
                     </div>
-                    
-                    {   
+
+                    {
                         // tslint:disable-next-line:no-string-literal
-                        this.props["showPopove"] ? <LoginPopove />:null
+                        this.props["showPopove"] ? <LoginPopove /> : null
                     }
 
                     <div className="bottomSolid">
                         <ul>
-                            {this.state.defaultName === "findmusic" ?  findMusiceChild :null } 
+                            {this.state.defaultName.replace(/\"/g,'') ===  "findmusic" ? findMusiceChild : null}
                         </ul>
                     </div>
-                    
+
                     {routePage}
                 </BrowserRouter>
 
