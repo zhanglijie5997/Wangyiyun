@@ -10,12 +10,15 @@ import configureStore from './redux/store/store';
 
 import { createBrowserHistory } from "history";
 
+import { BrowserRouter } from 'react-router-dom';
 // 创建store
 const store = configureStore(createBrowserHistory())
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </Provider>,
   document.getElementById('root') as HTMLElement
 );

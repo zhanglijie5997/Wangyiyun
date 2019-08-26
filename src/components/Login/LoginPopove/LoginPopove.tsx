@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import "./LoginPopove.scss"
 
 import actionsStore from '../../../redux/actions/actions';
+import { LoginPopoveState } from 'src/components/Type/Type';
 
 const mapStateToProps = (state:any) => ({
     showPopove: state.showPopove
@@ -17,13 +18,27 @@ const mapDispatch = (dispath:any) => {
 }
 
 class LoginPopove extends React.Component {
-    public state:any;
+    public state:LoginPopoveState;
+    
     constructor(props:any) {
         super(props);
         this.choseAgree = this.choseAgree.bind(this);
         this.closePopove = this.closePopove.bind(this);
+        this.popoveMouseDown = this.popoveMouseDown.bind(this);
+        this.popoveMousemove = this.popoveMousemove.bind(this);
+        // this.popoveMouseUp = this.popoveMouseUp.bind(this);
         this.state = {
-            choicAgree:false
+            choicAgree:false,  // 同意协议
+            isdown:false,      // 拖拽开关
+            mouse:{
+                disX: 0,        // 保存offWindowX
+                disY: 0,        // 保存offWindowY
+                offWindowX: 200, // 距离窗口x轴
+                offWindowY: 50, // 距离窗口y轴
+                screenX:0,     // 点击x轴坐标
+                screenY:0,     // 点击y轴坐标
+                
+            }
         }
 
     }
@@ -36,15 +51,74 @@ class LoginPopove extends React.Component {
         })
     }
     /**
-     * closePopove
+     * closePopove 关闭弹窗
      */
     public closePopove():void {
         // tslint:disable-next-line:no-string-literal
         this.props["changePopoveState"](false)
     }
+
+    /**
+     * popoveMouseenter 鼠标摁下事件 设置距离
+     */
+    public async popoveMouseDown(e:any):Promise<void> {
+        console.log(e);
+        const initState = this.state.mouse;
+        initState.screenX = e.pageX;
+        initState.screenY = e.pageY;
+        initState.disX = this.state.mouse.offWindowX;
+        initState.disY = this.state.mouse.offWindowY;
+        console.log(initState,'bbb')
+        await this.setState({
+            mouse: initState,
+        });
+        this.popoveMousemove(e)
+    }
+
+    /**
+     * popoveMousemove 鼠标移动事件
+     */
+    public popoveMousemove(event:any):void {
+        
+        document.onmousemove = (e:any) => {
+            const initState = this.state.mouse;
+            console.log(`移动`);
+            const pageX: number =  e.pageX;
+            const pageY: number = e.pageY;
+            console.log(pageX,this.state.mouse.screenX);
+            // debugger;
+            const screenX: number = pageX - this.state.mouse.screenX ;
+            const screenY: number = pageY - this.state.mouse.screenY;
+            initState.offWindowX = screenX + this.state.mouse.disX;
+            initState.offWindowY = screenY + this.state.mouse.disY;
+            initState.screenX = initState.screenX;
+            initState.screenY = initState.screenY;
+            this.setState({
+                mouse: initState
+            })
+        }
+        document.onmouseup = () => {
+            console.log(this.state.mouse)
+            document.onmousemove = null;
+        }
+    }
+    /**
+     * popoveMouseUp
+     */
+    
+
+    public UNSAFE_componentWillUpdate(nextProps:any,nextState:any) {
+        if (nextState.isdown) {
+            // this.popoveMousemove()
+        }
+    }
+    
     public render() {
         return (
-            <div className="loginPopove">
+            <div className="loginPopove" onMouseDown={() => this.popoveMouseDown(event)} 
+                style={{ "transform": `translate3d(${this.state.mouse.offWindowX}px,${this.state.mouse.offWindowY}px,0px)`}}
+                id="loginPopove"
+                >
                 {/* 11 */}
                 <div className="showLoginBox">
                     <div className="title">

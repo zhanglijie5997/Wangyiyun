@@ -3,18 +3,28 @@ import './App.scss';
 import Router from './router/Router';
 import './static/fonts/iconfont.css'
 
+import { withRouter } from 'react-router-dom';
+
+
+
+
+
+
 class App extends React.Component {
+  constructor(props:any){
+    super(props)
+  }
   public componentDidMount():void {
     // 
   }
   public render() {
     return (
       <div className="App">
-        <Router />
+        <Router {...this.props}/>
         {/* {Router} */}
       </div>
     );
   }
 }
 
-export default App;
+export default withRouter(App) ;

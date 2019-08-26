@@ -4,7 +4,7 @@ import { list } from "../pages/index";
 
 import IRouterList, { IRouterState } from '../components/Type/Type';
 
-import { BrowserRouter, Link, Route } from 'react-router-dom';
+import { Link, Route, Switch,} from 'react-router-dom';
 
 import FindMusicChild from "../pages/FindMusic/FindMusicChild/index";
 
@@ -15,20 +15,21 @@ import Login from 'src/components/Login/Login';
 import "./Router.scss"
 
 import LoginPopove from '../components/Login/LoginPopove/LoginPopove';
-
 import { connect } from "react-redux";
-import Storage from '../utils/Storage/Storage';
+
 
 const mapStateToProps = (state: any) => ({
     showPopove: state.showPopove
 })
+
 
 class Router extends React.Component {
     public state: IRouterState;
 
     constructor(props: any) {
         super(props);
-
+        // tslint:disable-next-line:no-console
+        console.log(props)
         this.state = {
             defaultName: 'findmusic',
             findmusicLisDefaultName: 'recommend'
@@ -47,7 +48,7 @@ class Router extends React.Component {
             defaultName: name
         });
         // 将Link存本地
-        Storage.SessionStorage("path", name)
+        // Storage.SessionStorage("path", name)
     }
 
     /**
@@ -61,33 +62,21 @@ class Router extends React.Component {
     }
 
     public async componentDidMount(): Promise<void> {
-        /* list.forEach((item: IRouterList, index: number) => {
-            if (location.pathname === item.to) {
+        // 
+       
+        
+        // tslint:disable-next-line:no-string-literal
+        const pathname:string = this.props['location'].pathname;
+       
+        list.forEach((item:IRouterList) => {
+                // tslint:disable-next-line:no-string-literal
+            if (item.to === pathname) {
                 this.setState({
                     defaultName: item.classname
-                },() => {
-                    Storage.SessionStorage("path", item.classname)
                 })
             }
-            
-
-
-
-
-
-            // tslint:disable-next-line:no-console
-            console.log(this.state, 'res')
-        }) */
-
-        if (Storage.GetSessionStorage("path")) {
-            this.setState({
-                defaultName: Storage.GetSessionStorage("path")
-            }, () => {
-                // tslint:disable-next-line:no-console
-                // console.log(this.state, '进入');
-
-            })
-        }
+        })
+         
     }
 
     public UNSAFE_componentWillUpdate(nextProps: any, nextState: any) {
@@ -140,7 +129,7 @@ class Router extends React.Component {
 
         return (
             <div className="router-view">
-                <BrowserRouter>
+               
                     <div className="tabBar">
                         <nav className="navBar">
                             <h1 className="logo">
@@ -156,7 +145,7 @@ class Router extends React.Component {
                                     创作者中心
                                 </Link>
                             </div>
-                            <Login />
+                            <Login {...this.props}/>
                         </nav>
 
                     </div>
@@ -171,9 +160,9 @@ class Router extends React.Component {
                             {this.state.defaultName.replace(/\"/g,'') ===  "findmusic" ? findMusiceChild : null}
                         </ul>
                     </div>
-
-                    {routePage}
-                </BrowserRouter>
+                <Switch> {routePage}</Switch>
+                    
+                
 
             </div>
         )
