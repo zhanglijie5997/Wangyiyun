@@ -8,7 +8,9 @@ import actionsStore from '../../../redux/actions/actions';
 import { LoginPopoveState } from 'src/components/Type/Type';
 
 const mapStateToProps = (state:any) => ({
-    showPopove: state.showPopove
+    loginType : state.loginType ,
+    showPopove: state.showPopove,
+    
 })
 
 const mapDispatch = (dispath:any) => {
@@ -26,10 +28,10 @@ class LoginPopove extends React.Component {
         this.closePopove = this.closePopove.bind(this);
         this.popoveMouseDown = this.popoveMouseDown.bind(this);
         this.popoveMousemove = this.popoveMousemove.bind(this);
-        // this.popoveMouseUp = this.popoveMouseUp.bind(this);
         this.state = {
             choicAgree:false,  // 同意协议
             isdown:false,      // 拖拽开关
+            loginType: "手机号登陆", // 登陆类型
             mouse:{
                 disX: 0,        // 保存offWindowX
                 disY: 0,        // 保存offWindowY
@@ -102,11 +104,7 @@ class LoginPopove extends React.Component {
             document.onmousemove = null;
         }
     }
-    /**
-     * popoveMouseUp
-     */
-    
-
+   
     public UNSAFE_componentWillUpdate(nextProps:any,nextState:any) {
         if (nextState.isdown) {
             // this.popoveMousemove()
@@ -115,67 +113,74 @@ class LoginPopove extends React.Component {
     
     public render() {
         return (
-            <div className="loginPopove" onMouseDown={() => this.popoveMouseDown(event)} 
-                style={{ "transform": `translate3d(${this.state.mouse.offWindowX}px,${this.state.mouse.offWindowY}px,0px)`}}
-                id="loginPopove"
-                >
-                {/* 11 */}
-                <div className="showLoginBox">
-                    <div className="title">
-                        <span>
-                            手机号登陆
-                        </span>
-                        <span />  
-                    </div>
-                    <i className="iconfont icon-guanbi" onClick={this.closePopove}/>
-                    {/* 手机号，密码 */}
-                    <div className="loginMsgBox">
-                        <div className="loginMsg">
-                            {/* 登录框内容 */}
-                            <div className="loginInput">
-                                <span className="iconfont icon-xiangxia">
-                                    +86
-                                </span>
-                                <span>
-                                    <input type="text" placeholder="请输入手机号" className="outPhone"/>
-                                </span>
-                            </div>
-                            <div className="outPassword">
-                                <input type="password" placeholder="请输入密码"/>
-                            </div>
-                            <div className="rememberPassword">
-                                <div>
-                                    <span className={["checkPwd iconfont", this.state.choicAgree ? "icon-huiyishiqueren_huabanfuben":''].join(' ')} onClick={this.choseAgree}/>
+            <div className="loginPopoveBox">
+                <div className="loginPopove" onMouseDown={() => this.popoveMouseDown(event)} 
+                    style={{ "transform": `translate3d(${this.state.mouse.offWindowX}px,${this.state.mouse.offWindowY}px,0px)`}}
+                    id="loginPopove"
+                    >
+                    {/* 11 */}
+                    <div className="showLoginBox">
+                        <div className="title">
+                            <span>
+                                手机号登陆
+                            </span>
+                            <span />  
+                        </div>
+                        <i className="iconfont icon-guanbi" onClick={this.closePopove}/>
+                        {/* 手机号，密码 */}
+                        <div className="loginMsgBox">
+                            <div className="loginMsg">
+                                {/* 登录框内容 */}
+                                <div className="loginInput">
+                                    
+                                    {   // tslint:disable-next-line:no-string-literal
+                                        this.props['loginType'] === '手机号登陆' ? <span className="iconfont icon-xiangxia">
+                                            +86
+                                        </span> : null
+                                    }
                                     <span>
-                                        记住密码
+                                        {
+                                            // tslint:disable-next-line:no-string-literal
+                                            <input type="text" placeholder={this.props['loginType']} className="outPhone"/>
+                                        }
                                     </span>
                                 </div>
-                                <div className="forgetPwd">
-                                    忘记密码?
+                                <div className="outPassword">
+                                    <input type="password" placeholder="请输入密码"/>
+                                </div>
+                                <div className="rememberPassword">
+                                    <div>
+                                        <span className={["checkPwd iconfont", this.state.choicAgree ? "icon-huiyishiqueren_huabanfuben":''].join(' ')} onClick={this.choseAgree}/>
+                                        <span>
+                                            记住密码
+                                        </span>
+                                    </div>
+                                    <div className="forgetPwd">
+                                        忘记密码?
+                                    </div>
+                                </div>
+                                {/* 提交 */}
+                                <div className="submit">
+                                    登陆
                                 </div>
                             </div>
-                            {/* 提交 */}
-                            <div className="submit">
-                                登陆
-                            </div>
                         </div>
-                    </div>
-                    {/* 底部注册其他登陆方式 */}
-                    <div className="registerOrMoreLogin">
-                        <div className="registerOrMoreLoginBox">
-                            {/*  */}
-                            <span>
-                                <a href="#">
-                                    {`< 其他登陆方式`}
-                                </a>
-                               
-                            </span>
-                            <span>
-                                <a href="#">
-                                    没有帐号？去注册 >
-                                </a>
+                        {/* 底部注册其他登陆方式 */}
+                        <div className="registerOrMoreLogin">
+                            <div className="registerOrMoreLoginBox">
+                                {/*  */}
+                                <span>
+                                    <a href="#">
+                                        {`< 其他登陆方式`}
+                                    </a>
                                 
-                            </span>
+                                </span>
+                                <span>
+                                    <a href="#">
+                                        没有帐号？去注册 >
+                                    </a>
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>

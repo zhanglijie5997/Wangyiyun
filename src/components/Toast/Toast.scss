@@ -1,0 +1,21 @@
+.toast {
+  width: auto;
+  padding: 7px 12px;
+  background: red;
+  position: fixed;
+  display: inline-block;
+  top: 60px;
+  left: calc(50% - 30px);
+  color: #ccc;
+  background: #635e5e;
+  border-radius: 10px;
+  transition: all 3s ease-in-out;
+  font-size: 12px;
+  &:before {
+    margin-right: 5px;
+  }
+}
+.topToBottom {
+  top: -26px;
+}
+

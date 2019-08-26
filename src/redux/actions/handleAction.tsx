@@ -1,8 +1,8 @@
 import { handleActions  } from "redux-actions";
-import {  showPopove ,token, user } from "../state/state";
+import { showPopove, token, user, loginType, toastMsg} from "../state/state";
 import types from "../types/typs";
 
-import { IUser } from 'src/components/Type/Type';
+import { IUser, IToastMsg } from 'src/components/Type/Type';
 
 // 设置token  Reducer
 const tokenReducer = handleActions<string>({
@@ -24,8 +24,23 @@ const popoveReducer = handleActions<boolean>({
     }
 },showPopove)
 
+// 设置loginType  Reducer
+const loginTypeReducer = handleActions<string>({
+    [types.LOGIN_TYPE]:(state:any,action:any) => action.payload
+},loginType)
+
+// 设置toast状态
+const toastReducer = handleActions<IToastMsg>({
+    [types.TOAST_STAUS]:(state:any,action:any) => {
+        console.log(action,'handleActions')
+       return  ({...action.payload})
+    }
+},toastMsg)
+
 export default {
+    loginTypeReducer,
     popoveReducer,
+    toastReducer,
     tokenReducer,
     userReducer,
 }

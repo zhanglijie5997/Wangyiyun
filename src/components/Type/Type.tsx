@@ -28,16 +28,18 @@ export interface ILoginListType {
 }
 
 export interface ILoginState {
-    showList     : boolean,
-    loginTypeList: ILoginListType[],
-    showPopove?  : boolean
+    clickLoginType? : string,
+    showList        : boolean,
+    loginTypeList   : ILoginListType[],
+    showPopove?     : boolean,
+    toastMsg        : IToastMsg
 }
 
 // components/Login/LoginPopove/LoginPopove state类型
 export interface LoginPopoveState {
     choicAgree  :   boolean,
     isdown      :   boolean,
-    
+    loginType   :  string,
     mouse       :   {   
                         disX: number,
                         disY: number,
@@ -46,4 +48,24 @@ export interface LoginPopoveState {
                         screenX:number,
                         screenY:number
                      }
+}
+
+
+// components/Toast/Toast state类型
+export interface IToastState {
+    toastMsg    :   IToastMsg,
+    addAnimate  :   boolean
+}
+
+// App state类型
+export interface IAppState {
+    toastStatus  : boolean,
+    
+}
+
+// components/Toast/Toast state类型
+export interface IToastMsg {
+    duation     :   number,
+    msg         :   string,
+    show        :   boolean
 }
