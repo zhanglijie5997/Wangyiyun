@@ -4,18 +4,34 @@
   background: red;
   position: fixed;
   display: inline-block;
-  top: 60px;
+  top: -26px;
   left: calc(50% - 30px);
   color: #ccc;
   background: #635e5e;
   border-radius: 10px;
   transition: all 3s ease-in-out;
-  font-size: 12px;
+  width: 140px;
+  font-size: 12px!important;
+  text-align: center;
   &:before {
     margin-right: 5px;
   }
 }
-.topToBottom {
-  top: -26px;
+.iconfont {
+  font-size: 12px;
 }
 
+.addAnimate {
+  animation: topToBottom 3s ease;
+  animation-direction:alternate;
+  // top: 60px;
+}
+
+@keyframes topToBottom {
+  from {
+    top: -26px;
+  }
+  to {
+    top: 60px;
+  }
+}

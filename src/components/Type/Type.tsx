@@ -37,10 +37,15 @@ export interface ILoginState {
 
 // components/Login/LoginPopove/LoginPopove state类型
 export interface LoginPopoveState {
-    choicAgree  :   boolean,
-    isdown      :   boolean,
-    loginType   :  string,
-    mouse       :   {   
+    choicAgree      :   boolean,
+    isdown          :   boolean,
+    loginType       :   string,
+    close           :   boolean
+    phoneInputs     :   string 
+    phoneIsTrue     :   boolean
+    passwordIstrue  :   boolean
+    password        :   string
+    mouse           :   {   
                         disX: number,
                         disY: number,
                         offWindowX:number,

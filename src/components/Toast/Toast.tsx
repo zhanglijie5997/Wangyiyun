@@ -7,7 +7,7 @@ import actionsStore from 'src/redux/actions/actions';
 
 const mapStateToProps = (state:any) => ({
     // tslint:disable-next-line:no-string-literal
-    toastMsg: state
+    toast: state.toast
 })
 
 const mapDispatch = (dispatch:any) => {
@@ -18,9 +18,10 @@ const mapDispatch = (dispatch:any) => {
 
 class Toast extends React.Component {
     public state: IToastState;
+    public timer: NodeJS.Timeout;
     constructor(props:any) {
         super(props);
-        console.log(props,'toastProps')
+        // console.log(props,'toastProps')
         this.state = {
             addAnimate: false,
             
@@ -32,9 +33,9 @@ class Toast extends React.Component {
         }
     }
 
-    public async UNSAFE_componentWillMount():Promise<void> {
+    public async componentDidMount():Promise<void> {
         // await this.changeAnimateStatus(500, true);
-        // await this.changeAnimateStatus(3000,true);
+       this.timer = await this.changeAnimateStatus(3000,true);
     }
 
     /**
@@ -44,7 +45,7 @@ class Toast extends React.Component {
     public async changeAnimateStatus(time:number,status:boolean) {
         const self =this;
       
-        await setTimeout(() => {
+       return await setTimeout(() => {
             self.setState({
                 toastMsg: {
                     duation: 3000,
@@ -52,21 +53,28 @@ class Toast extends React.Component {
                     show: status
                 }
             })
+            // tslint:disable-next-line:no-string-literal
+            self.props['changeToastState'](self.state.toastMsg)
+        //    console.log(this.state.addAnimate, '???')
          }, time)
-          // tslint:disable-next-line:no-string-literal
-        await self.props['changeToastState'](self.state.toastMsg)
-        console.log(this.state.addAnimate,'???')
+          
+        
+    }
+
+    public componentWillUnmount():void {
+        // 清楚定时器
+        clearTimeout(this.timer)
     }
 
     public render() {
         return (
             <div className={
                 // tslint:disable-next-line:no-string-literal
-                ["toast", 'iconfont icon-xiaoxi-jinggao', this.props['toastMsg']['toast']['show'] ? 'topToBottom' :'' ].join(' ')
+                ["toast", 'iconfont icon-xiaoxi-jinggao', this.props['toast']['show'] ? 'addAnimate':''].join(' ')
                 }>
                 {
                     // tslint:disable-next-line:no-string-literal
-                    this.props['toastMsg']['toast']['msg']
+                    this.props['toast']['msg']
                     // this.state.toastMsg
                 }
             </div>

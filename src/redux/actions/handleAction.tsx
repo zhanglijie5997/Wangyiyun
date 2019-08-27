@@ -3,6 +3,7 @@ import { showPopove, token, user, loginType, toastMsg} from "../state/state";
 import types from "../types/typs";
 
 import { IUser, IToastMsg } from 'src/components/Type/Type';
+import { ShowPopoveType } from 'src/components/Type/ReduxType';
 
 // 设置token  Reducer
 const tokenReducer = handleActions<string>({
@@ -15,12 +16,12 @@ const userReducer = handleActions<IUser>({
 },user)
 
 // 设置popove Reducer
-const popoveReducer = handleActions<boolean>({
+const popoveReducer = handleActions<ShowPopoveType>({
     [types.POPOVE_STATE]:(state:any,action:any) => {
         // tslint:disable-next-line:no-console
-        console.log(action.payload,state,"handeActions")
+        // console.log(action.payload,state,"handeActions")
         // state = action.payload;
-        return action.payload
+        return ({...action.payload})
     }
 },showPopove)
 
@@ -32,7 +33,7 @@ const loginTypeReducer = handleActions<string>({
 // 设置toast状态
 const toastReducer = handleActions<IToastMsg>({
     [types.TOAST_STAUS]:(state:any,action:any) => {
-        console.log(action,'handleActions')
+        // console.log(action,'handleActions')
        return  ({...action.payload})
     }
 },toastMsg)

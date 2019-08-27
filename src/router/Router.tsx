@@ -29,9 +29,9 @@ class Router extends React.Component {
     constructor(props: any) {
         super(props);
         // tslint:disable-next-line:no-console
-        console.log(props)
+        // console.log(props)
         this.state = {
-            defaultName: 'findmusic',
+            defaultName: 'recommend',
             findmusicLisDefaultName: 'recommend'
         };
         this.changeRoute = this.changeRoute.bind(this);
@@ -75,6 +75,14 @@ class Router extends React.Component {
                     defaultName: item.classname
                 })
             }
+        });
+
+        FindMusicChild.forEach((item:IRouterList) => {
+            if(item.to === pathname) {
+                this.setState({
+                    findmusicLisDefaultName: item.classname
+                })
+            }
         })
          
     }
@@ -110,7 +118,7 @@ class Router extends React.Component {
         // 页面
         const routePage = (list.concat(FindMusicChild)).map((item: IRouterList, index: number) => {
             return (
-                <Route path={item.to} component={item.component} key={index} excal={true} />
+                <Route path={item.to} component={item.component} key={index} exact={true} />
             )
         })
         // 发现音乐二级路由
@@ -120,7 +128,6 @@ class Router extends React.Component {
                 // tslint:disable-next-line:jsx-no-lambda
                 <li key={index} onClick={() => this.changeRouteFind(item.classname)}>
                     <Link to={item.to} className={item.classname} >
-                        
                         <em className={`${this.state.findmusicLisDefaultName === item.classname ? 'linkSecendAddBg' : null}`}> {item.name}</em>
                     </Link>
                 </li>
@@ -141,7 +148,7 @@ class Router extends React.Component {
                             {/* 搜索框 */}
                             <Seach />
                             <div className="makeCenter">
-                                <Link to='/MyMusic' className="makeCenterText">
+                            <Link to='/MyMusic' className="makeCenterText" onClick={() => this.changeRoute('mymusic', '/MyMusic')}>
                                     创作者中心
                                 </Link>
                             </div>
@@ -152,12 +159,12 @@ class Router extends React.Component {
 
                     {
                         // tslint:disable-next-line:no-string-literal
-                        this.props["showPopove"] ? <LoginPopove /> : null
+                        this.props["showPopove"]["show"] ? <LoginPopove /> : null
                     }
 
                     <div className="bottomSolid">
                         <ul>
-                            {this.state.defaultName.replace(/\"/g,'') ===  "findmusic" ? findMusiceChild : null}
+                        {this.state.defaultName.replace(/\"/g, '') ===  "recommend" ? findMusiceChild : null}
                         </ul>
                     </div>
                 <Switch> {routePage}</Switch>

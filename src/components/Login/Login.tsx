@@ -21,10 +21,10 @@ const mapDispatch = (dispatch:any) => {
         
         changePopoveState: (payload: any) => {
             // tslint:disable-next-line:no-console
-            console.log(payload,'payload')
+            // console.log(payload,'payload')
             return dispatch(actionsStore.setPopoveState(payload))
         },
-        changeToastState: (payload: IToastMsg) => dispatch(actionsStore.setToastStatus({...payload})),
+        changeToastState: (payload: IToastMsg) => dispatch(actionsStore.setToastStatus(payload)),
     }
 }
 class Login extends React.Component {
@@ -32,7 +32,7 @@ class Login extends React.Component {
     constructor(props:any) {
         super(props);
         // tslint:disable-next-line:no-console
-        console.log(props)
+        // console.log(props)
         this.state = {
             loginTypeList:[
                 {icon:'icon-shouji',name:'手机号登陆'},
@@ -45,7 +45,7 @@ class Login extends React.Component {
             toastMsg:{
                 duation:3000,
                 msg:'暂不支持此登陆类型',
-                show:false
+                show:true
             }
         }
         this.mouseLoginShow = this.mouseLoginShow.bind(this);
@@ -65,16 +65,24 @@ class Login extends React.Component {
     }
 
     public async goLogin(icon:string,name:string):Promise<void> {
+        const self =this;
         // tslint:disable-next-line:no-bitwise
         if(~icon.indexOf("shouji") || ~icon.indexOf("youxiang")) {
             // tslint:disable-next-line:no-string-literal
-            await this.props['changePopoveState'](true);
+            await this.props['changePopoveState']({ show: true, type:icon});
             // tslint:disable-next-line:no-string-literal
             await this.props['changeLoginTypeState'](name)
         }else {
             // tslint:disable-next-line:no-string-literal
             await this.props['changeToastState'](this.state.toastMsg)
-            
+            setTimeout(() => {
+                 // tslint:disable-next-line:no-string-literal
+                self.props['changeToastState']({
+                    duation: 3000,
+                    msg: '暂不支持此登陆类型',
+                    show: false
+                })
+            },3000)
         }
     }
     public render() {
@@ -101,7 +109,6 @@ class Login extends React.Component {
                         {loginTypeList}
                     </ul>
                 </div>
-                {/* toast 组件 */}
                 
             </div>
         )

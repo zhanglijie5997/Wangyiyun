@@ -1,4 +1,4 @@
-import FindMusic from "./FindMusic/FindMusic";
+import Recommend from "./FindMusic/FindMusicChild/Recommend/Recommend";
 import Friends from "./Friends/Friends";
 import MusicDowload from './MusicDowload/MusicDowload';
 import MusicPeople from "./MusicPeople/MusicPeople";
@@ -9,11 +9,17 @@ import  PagesType  from '../components/Type/Type';
 
 // 导出所有路由页面
 export const list: PagesType[] = [
+    // {   // 发现音乐
+    //     classname: "findmusic",
+    //     component: FindMusic,
+    //     name:"发现音乐",
+    //     to:"/FindMusic",
+    // },
     {   // 发现音乐
-        classname: "findmusic",
-        component: FindMusic,
+        classname: "recommend",
+        component: Recommend,
         name:"发现音乐",
-        to:"/FindMusic",
+        to:"/",
     },
     {   // 我的音乐
         classname: "mymusic",

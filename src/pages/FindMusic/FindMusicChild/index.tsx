@@ -12,7 +12,7 @@ const FindMusicList: PagesType[] =[
         classname: "recommend",
         component: Recommend,
         name: "推荐",
-        to: "/Recommend",
+        to: "/",
     },
     {   // 排行榜
         classname: "leaderboard",

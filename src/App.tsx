@@ -1,16 +1,23 @@
 import * as React from 'react';
-import './App.scss';
 import Router from './router/Router';
-import './static/fonts/iconfont.css'
-
 import { withRouter } from 'react-router-dom';
 import Toast from './components/Toast/Toast';
 import { IAppState } from './components/Type/Type';
+import {connect  } from "react-redux";
+import { StaticContext, RouteComponentProps } from 'react-router';
+import './App.scss';
+import './static/fonts/iconfont.css'
+
+
+const mapStateToProps =(state:any) => ({
+  toast  : state.toast
+})
 
 class App extends React.Component {
   public state: IAppState;
   constructor(props:any){
     super(props);
+    // console.log(props,'nnn')
     this.state = {
       toastStatus:true , // toast状态
     }
@@ -23,10 +30,13 @@ class App extends React.Component {
       <div className="App">
         <Router {...this.props}/>
         {/* {Router} */}
-        {this.state.toastStatus ? <Toast {...this.state} />:null}  
+        {
+          // tslint:disable-next-line:no-string-literal
+          this.props['toast']['show'] ? <Toast />:null
+        }  
       </div>
     );
   }
 }
 
-export default withRouter(App) ;
+export default withRouter<RouteComponentProps<any, StaticContext, any>,any>(connect(mapStateToProps)(App));
