@@ -4,7 +4,7 @@ import types from "../types/typs";
 
 import { IUser, IToastMsg } from 'src/components/Type/Type';
 
-// dispact方法需要走这个过程
+// dispach方法需要走这个过程
 
 // 设置用户token
 const setToken = createAction(types.TOKEN,(token:string) => token);
