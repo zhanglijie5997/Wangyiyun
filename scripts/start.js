@@ -80,7 +80,7 @@ choosePort(HOST, DEFAULT_PORT)
       urls.lanUrlForConfig
     );
     const devServer = new WebpackDevServer(compiler, serverConfig);
-    require("../src/proxy")(devServer)
+    require('../src/proxy')(devServer)
     // Launch WebpackDevServer.
     devServer.listen(port, HOST, err => {
       if (err) {
