@@ -1,0 +1,44 @@
+.friends {
+    .friends-body {
+        background: #f5f5f5;
+        .friends-body-center {
+            width: 980px;
+            min-height: 700px;
+            height: 700px;
+            margin: 0 auto;
+            background-color: #fff;
+            border: 1px solid #d3d3d3;
+            border-width: 0 1px;
+            .friends-center-img {
+                width: 902px;
+                height: 414px;
+                margin: 0 auto 0;
+                padding-top: 70px;
+                background-position: 0 70px; 
+            }
+            .friends-center-desc {
+                padding: 178px 0 0 535px;
+                line-height: 23px;
+                font-size: 14px;
+                color: #666;
+            }
+            .friends-center-btn {
+                display: block;
+                width: 157px;
+                height: 48px;
+                margin: 36px 0 0 535px;
+                background-position: 0 9999px;
+                text-indent: -9999px;
+                &:hover {
+                    background-position: 0 -430px;
+                    text-decoration: underline;
+                    color: #333;
+                    cursor: pointer;
+                }
+            }
+        }
+        .friends-center-img, .friends-center-btn {
+            background: url('../../static/img/notlogin.png') no-repeat center 0;
+        }
+    }
+}
