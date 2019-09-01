@@ -7,7 +7,7 @@ import { ShowPopoveType } from 'src/components/Type/ReduxType';
 
 // 设置token  Reducer
 const tokenReducer = handleActions<string>({
-    [types.TOKEN]:(state:any,action:any) => action.payload.token
+    [types.TOKEN]:(state:any,action:any) => action.payload
 },token)
 
 // 设置user Reducer

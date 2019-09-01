@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse, CancelTokenSource } from "axios";
 import {stringify} from "querystring";
+import HttpStatus from './HttpStatus/HttpStatus';
 class HttpClient {
     public static instance:HttpClient = new HttpClient();
     public mapList:Map<string,boolean>;
@@ -26,9 +27,11 @@ class HttpClient {
                 this.cancelToken();
                 this.mapList.delete(url)
             }
-            Promise.resolve(config)
+            const data = new HttpStatus(config.data).init(config.data);
+            // console.log(config.data,'config')
+            return Promise.resolve(data)
         },(err:Error) => {
-            Promise.reject(err);
+           return  Promise.reject(err);
         })
     }
     /**
@@ -43,9 +46,6 @@ class HttpClient {
             timeout: 10000,
             ...params,
             data: stringify(params.data),
-            headers:{
-                "Content-Type":'application/json'
-            },
             url,
         })
         // console.log(axiosInit,'axiosInit')

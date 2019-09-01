@@ -1,5 +1,106 @@
 .recommendHeader {
-    width: 100%;
+  width: 100%;
+  height: 336px;
+  overflow: hidden;
+  position: relative;
+  .bannerWithDownload {
     height: 336px;
-    background: #cccccc;
+    width: 1024px;
+    margin: 0 auto;
+    position: relative;
+    .bannerPosBox {
+      width: 770px;
+      height: 336px;
+      overflow: hidden;
+      position: relative;
+      display: inline-block;
+      .bannerBox {
+        position: relative;
+        height: 336px;
+        li {
+          float: left;
+          width: 770px;
+          height: 336px;
+          background-size: 100% 100% !important;
+        }
+        &:after {
+          content: "";
+          clear: both;
+          display: block;
+        }
+      }
+    }
+    // 下载
+    .downLoad {
+      width: 254px;
+      background: red;
+      display: inline-block;
+      height: 336px;
+      top: 0;
+
+      position: relative;
+      img {
+        width: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+    }
+    // 选择其中一个点
+    .chointPointBox{
+        height: 20px;
+        display: flex;
+        position: absolute;
+        bottom: 10px;
+        width: 100%;
+        transform: translate3d(calc(50% + -126px), 0px, 0px);
+        .point{
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+            background: url(../../../../../static/img/banner.png) no-repeat;
+            background-size: 200%;
+            background-position: 2px -352px;
+            // transition: opacity 2s ease-in-out;
+            &:hover {
+                background-position: -17px -352px; 
+            }
+        }
+    }
+  }
+  // 轮播图➕1按钮
+  .left,.right {
+      margin: 0;
+      padding: 0;
+      border: none;
+      outline: none;
+      cursor: pointer;
+  }
+  .left {
+    position: absolute;
+    left: 0;
+    background: url(../../../../../static/img/banner.png) 0 9999px no-repeat;
+    background-position: 0px -352px;
+    height: 63px;
+    background-size: 120%;
+    width: 32px;
+    top: calc(50% - 32px);
+    left: -4%;
+    &:hover {
+        background-position: 0px -420px;
+    }
+  }
+  .right {
+    position: absolute;
+    background: url(../../../../../static/img/banner.png) 0 9999px no-repeat;
+    background-position: 0px -500px;
+    height: 63px;
+    background-size: 120%;
+    width: 32px;
+    top: calc(50% - 32px);
+    right:-4%;
+    &:hover {
+        background-position: 0px -569px;
+    }
+  }
 }

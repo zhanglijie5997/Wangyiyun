@@ -1,7 +1,7 @@
 import { IUser } from 'src/components/Type/Type';
 import { ShowPopoveType } from '../../components/Type/ReduxType';
 
-export const token: string = ''; // token默认值
+export const token: string = 'shabi'; // token默认值
 
 export const showPopove: ShowPopoveType = {// 显示登陆popove
     show:false,

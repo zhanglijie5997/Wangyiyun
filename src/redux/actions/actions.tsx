@@ -8,7 +8,10 @@ import { ShowPopoveType } from 'src/components/Type/ReduxType';
 // dispact方法需要走这个过程
 
 // 设置用户token
-const setToken = createAction(types.TOKEN,(token:string) => token);
+const setToken = createAction(types.TOKEN,(token:string) => {
+    // console.log(token,'进来了')
+    return token
+});
 // 设置用户信息
 const setUser = createAction(types.USER_MSG,({...params}:IUser) => ({...params}))
 // 设置popove状态

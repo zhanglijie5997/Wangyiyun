@@ -1,0 +1,29 @@
+.recommemdBodyHeader {
+    background: #f5f5f5;
+    min-height: 700px;
+    padding-bottom: 20px;
+    .recommemdBody {
+        width: 1024px;
+        margin: 0 auto;
+        background: #fff;
+        height: 100%;
+        display: flex;
+        // 左侧
+        .recommemdBodyLeft {
+            padding: 20px 0 20px 0;
+            width: 770px;
+            min-height: 700px;
+            border-left: 1px solid #d3d3d3;
+            border-right: 1px solid #d3d3d3;
+            border-bottom: 1px solid #d3d3d3;
+        }
+        // 右侧
+        .recommemBodyRight {
+            padding: 20px 0 20px 0;
+            width: 254px;
+            min-height: 700px;
+            border-right: 1px solid #d3d3d3;
+            border-bottom: 1px solid #d3d3d3;
+        }
+    }
+}
