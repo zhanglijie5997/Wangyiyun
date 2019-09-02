@@ -7,6 +7,7 @@ import {connect  } from "react-redux";
 import { StaticContext, RouteComponentProps } from 'react-router';
 import './App.scss';
 import './static/fonts/iconfont.css'
+import Music from './components/Music/Music';
 
 
 const mapStateToProps =(state:any) => ({
@@ -34,6 +35,8 @@ class App extends React.Component {
           // tslint:disable-next-line:no-string-literal
           this.props['toast']['show'] ? <Toast />:null
         }  
+
+        <Music />
       </div>
     );
   }

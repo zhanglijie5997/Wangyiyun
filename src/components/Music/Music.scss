@@ -1,0 +1,148 @@
+.music {
+  width: 100%;
+  // 头部
+  position: fixed;
+  bottom: 0px;
+  padding-top: 14px;
+  .hand {
+    height: 61px;
+    position: absolute;
+    right: 0px;
+    top: 0;
+    width: 67px;
+    background: url(../../static/img/playbar.png) no-repeat;
+    background-position: 0px -386px;
+    // 锁
+    .lock {
+      background: url(../../static/img/playbar.png) no-repeat;
+      background-position: -99px -381px;
+      display: inline-block;
+      transform: translate3d(15px, 0px, 0px);
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+  }
+  // 播放器
+  .musicBox {
+    background: url(../../static/img/playbar.png) repeat;
+    height: 47px;
+    background-position: 0px -6px;
+    .musicConstructor {
+      display: flex;
+      width: 1024px;
+      margin: 0 auto;
+      //   background: red;
+      height: 100%;
+      // 左侧控制播放
+      .constructorLeft {
+        padding-top: 9px;
+        width: 137px;
+        display: flex;
+        span {
+          display: blcok;
+          margin-right: 8px;
+          cursor: pointer;
+        }
+        span:nth-child(1),
+        span:nth-child(3) {
+          width: 28px;
+          height: 28px;
+          background: url(../../static/img/playbar.png) repeat;
+          padding-top: 5px;
+        }
+        span:nth-child(1) {
+          background-position: 0px -128px;
+          &:hover {
+            background-position: -30px -128px;
+          }
+        }
+        span:nth-child(3) {
+          background-position: -80px -128px;
+          &:hover {
+            background-position: -110px -128px;
+          }
+        }
+        span:nth-child(2) {
+          width: 33px;
+          height: 33px;
+          background: url(../../static/img/playbar.png) repeat;
+          background-position: -2px -205px;
+          margin-top: -1px;
+          &:hover {
+            background-position: -42px -205px;
+          }
+        }
+      }
+      // 收藏
+      .collection {
+        margin-left: 20px;
+        width: 60px;
+        height: 36px;
+        span {
+          margin: 12px 2px;
+          display: inline-block;
+          width: 25px;
+          height: 25px;
+          background: url(../../static/img/playbar.png) repeat;
+          cursor: pointer;
+          //   background: red;
+        }
+        span:nth-child(1) {
+          background-position: -89px -163px;
+          &:hover {
+            background-position: -89px -189px;
+          }
+        }
+        span:nth-child(2) {
+          background-position: -112px -163px;
+          &:hover {
+            background-position: -112px -189px;
+          }
+        }
+      }
+      // 渐变线
+      .gradintLine {
+        width: 5px;
+        height: 100%;
+        background: url(../../static/img/playbar.png) repeat;
+        background-position: -147px -235px;
+        margin: 0 10px;
+      }
+      // 音量,循环,歌单
+      .volumnBox {
+        padding-top: 5px;
+        width: 160px;
+        a {
+          display: inline-block;
+          background: url(../../static/img/playbar.png) repeat;
+        }
+        a:nth-child(1),
+        a:nth-child(2) {
+          width: 25px;
+          height: 25px;
+        }
+        a:nth-child(1) {
+          background-position: -2px -245px;
+          &:hover {
+            background-position: -31px -245px;
+          }
+        }
+        a:nth-child(2) {
+          background-position: -66px -245px;
+          &:hover {
+            background-position: -93px -245px;
+          }
+        }
+        a:nth-child(3) {
+          width: 59px;
+          height: 29px;
+          background-position: -41px -63px;
+          &:hover {
+            background-position: -41px -93px;
+          }
+        }
+      }
+    }
+  }
+}

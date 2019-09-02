@@ -4,6 +4,7 @@
   font-size: 12px;
   cursor: pointer;
   position: relative;
+  z-index: 999;
   em {
     &:hover {
       color: #999;

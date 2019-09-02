@@ -67,10 +67,10 @@ function RecommendHeader(props: IPropsType): JSX.Element {
         if(choic === 1) {
             
             setStates(states + 1);
-            console.log(states, 'state,---');
+            // console.log(states, 'state,---');
         }else if(choic === 0){
             setStates(states - 1);
-            console.log(states,'state,---');
+            // console.log(states,'state,---');
         }
         
         bannerIndexFn(states, choic);
@@ -82,7 +82,7 @@ function RecommendHeader(props: IPropsType): JSX.Element {
      * @param choic      加还是减
      */
     function bannerIndexFn(stateIndex: number, choic: number = 1) {
-        console.log(stateIndex, 'choic')
+        // console.log(stateIndex, 'choic')
         if (stateIndex >= 3) {
             setStates(0);
         } else {

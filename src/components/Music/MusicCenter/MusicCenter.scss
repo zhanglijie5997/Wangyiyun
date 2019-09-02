@@ -1,0 +1,62 @@
+.centerBox {
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+//   width: 630px;
+padding-right: 80px;
+  // 左侧图片
+  .musicImg {
+    width: 34px;
+    height: 34px;
+    margin: 6px 15px 0 0;
+    // background: red;
+    a {
+      width: 100%;
+      height: 100%;
+      display: block;
+      background: url(../../../static/img/default_album.jpg) repeat;
+      background-size: cover;
+    }
+  }
+  // 右侧进度条
+  .progess {
+    width: 493px;
+    height: 100%;
+    position: relative;
+    background: url(../../../static/img/statbar.png) no-repeat;
+    background-position: 0 28px;
+    .progessBar {
+      position: relative;
+      width: 0%;
+      background: url(../../../static/img/statbar.png) no-repeat;
+      background-position: 0 -38px;
+      height: 100%;
+      transition: all 0s ease;
+      span {
+        position: absolute;
+        display: block;
+        width: 22px;
+        height: 24px;
+        top: 20px;
+        cursor: pointer;
+        left: -3px;
+        background: url(../../../static/img/iconall.png) no-repeat;
+        background-position: 0 -249px;
+        transition: all 0s ease;
+        transform: translateZ(0)
+      }
+    }
+  }
+  // 时间
+  .time {
+      position: absolute;
+      right: 0px;
+      bottom:9px;
+      font-size: 12px;
+      color: #797979;
+      em:nth-child(1) {
+          color: #a1a1a1;
+      }
+  }
+}
