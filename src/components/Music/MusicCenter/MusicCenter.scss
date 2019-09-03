@@ -3,8 +3,8 @@
   overflow: hidden;
   position: relative;
   height: 100%;
-//   width: 630px;
-padding-right: 80px;
+  //   width: 630px;
+  padding-right: 80px;
   // 左侧图片
   .musicImg {
     width: 34px;
@@ -21,6 +21,7 @@ padding-right: 80px;
   }
   // 右侧进度条
   .progess {
+    display: flex;
     width: 493px;
     height: 100%;
     position: relative;
@@ -34,29 +35,40 @@ padding-right: 80px;
       height: 100%;
       transition: all 0s ease;
       span {
+
         position: absolute;
         display: block;
         width: 22px;
         height: 24px;
         top: 20px;
         cursor: pointer;
-        left: -3px;
+        left: -4px;
         background: url(../../../static/img/iconall.png) no-repeat;
         background-position: 0 -249px;
         transition: all 0s ease;
-        transform: translateZ(0)
+        // transform: translateZ(0);
       }
+    }
+    .mouseDon {
+      width: 22px;
+      height: 24px;
+      background: url(../../../static/img/iconall.png) no-repeat;
+      background-position: 0 -249px;
+      transition: all 0s ease;
+      transform: translateZ(0);
+          margin-top: 19px;
+    margin-left: -6px;
     }
   }
   // 时间
   .time {
-      position: absolute;
-      right: 0px;
-      bottom:9px;
-      font-size: 12px;
-      color: #797979;
-      em:nth-child(1) {
-          color: #a1a1a1;
-      }
+    position: absolute;
+    right: 0px;
+    bottom: 9px;
+    font-size: 12px;
+    color: #797979;
+    em:nth-child(1) {
+      color: #a1a1a1;
+    }
   }
 }
