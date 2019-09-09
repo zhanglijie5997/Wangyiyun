@@ -12,6 +12,7 @@
     width: 67px;
     background: url(../../static/img/playbar.png) no-repeat;
     background-position: 0px -386px;
+    z-index: -1;
     // 锁
     .lock {
       background: url(../../static/img/playbar.png) no-repeat;
@@ -40,7 +41,7 @@
         width: 137px;
         display: flex;
         span {
-          transition: all .5s ease;
+          // transition: all .5s ease;
           display: blcok;
           margin-right: 8px;
           cursor: pointer;

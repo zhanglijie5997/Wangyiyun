@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@loadable/component": "^5.10.2",
     "autoprefixer": "7.1.6",
     "babel-jest": "20.0.3",
     "babel-loader": "7.1.2",
@@ -44,13 +45,14 @@
     "whatwg-fetch": "2.0.3"
   },
   "scripts": {
-    "git":"git add . && git status && git commit -m ",
-    "push":"git push",
+    "git": "git add . && git status && git commit -m ",
+    "push": "git push",
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom"
   },
   "devDependencies": {
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@types/axios": "^0.14.0",
     "@types/http-proxy-middleware": "^0.19.3",
     "@types/jest": "^24.0.18",
@@ -127,11 +129,14 @@
   "babel": {
     "presets": [
       "react-app"
+    ],
+    "plugins": [
+      "@babel/plugin-syntax-dynamic-import"
     ]
   },
   "proxy": {
     "/api": {
-      "changeOrigin":true,
+      "changeOrigin": true,
       "target": "http://192.168.1.106:3000/"
     }
   }

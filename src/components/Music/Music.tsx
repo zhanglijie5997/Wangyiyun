@@ -1,12 +1,13 @@
 import * as React from 'react'
 import './Music.scss';
-import MusicCenter from "./MusicCenter/MusicCenter";
-import Audio from './Audio/Audio';
+// import MusicCenter from "./MusicCenter/MusicCenter";
+import loadable from "@loadable/component";
 import AudioHttp from '../../utils/Http/HttpList/Audio';
-
+const MusicCenter = loadable(() => import("./MusicCenter/MusicCenter"))
 export default function Music() {
     const [playAudio, setPlayAudio] = React.useState<boolean>(false); // 设置音频播放还是暂停
     const [audioUrl,setAudioUrl] = React.useState('');// 音乐地址
+    const [centerShow,setCenter] = React.useState<boolean>(false);// 异步控制显示子组件
     // 控制音频
     const useAudioRef: any = React.useRef(null);
     // 播放音频
@@ -24,17 +25,17 @@ export default function Music() {
         // useAudioRef.current.play();
     }, [playAudio])
     React.useEffect(() => {
-         getMusicUrlAddress();
+        getMusicUrlAddress();
         setTimeout(() => {
-            // const time = useAudioRef.current.duration();
-            // console.log(time, '..??')
+            setCenter(true)
         }, 20)
     }, []);
     // 获取音乐数据
     const getMusicUrlAddress = async () => {
         const data = await AudioHttp.getMusicUrl('33894312');
         console.log(data, '音乐数据');
-        await setAudioUrl(data.data[0].url)
+        await setAudioUrl(data.data[0].url);
+        
     }
     
   
@@ -42,9 +43,7 @@ export default function Music() {
     return (
         <div className="music">
             {/* 头部 */}
-            <div className="hand" >
-                <span className="lock" />
-            </div>
+           
             {/* 播放器 */}
             <div className="musicBox">
                 {/* 控制信息 */}
@@ -57,7 +56,9 @@ export default function Music() {
                     </div>
                     {/* 右侧进度条 */}
                     <div className="constructorCenter">
-                        <MusicCenter />
+                        {audioUrl && centerShow? 
+                            <MusicCenter audioUrl={audioUrl} ref={useAudioRef} />
+                        :null}
                     </div>
                     {/* 收藏,分享 */}
                     <div className="collection">
@@ -74,7 +75,10 @@ export default function Music() {
                     </div>
                 </div>
             </div>
-            {audioUrl ? <Audio ref={useAudioRef} audioUrl={audioUrl}/> : null}
+            {/* {audioUrl ? <Audio ref={useAudioRef} audioUrl={audioUrl}/> : null} */}
+            <div className="hand" >
+                <span className="lock" />
+            </div>
         </div>
     )
 }

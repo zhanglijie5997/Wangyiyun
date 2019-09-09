@@ -123,7 +123,7 @@ function RecommendHeader(props: IPropsType): JSX.Element {
             <div className="bannerWithDownload">
                 <div className="bannerPosBox" >
                     {/* 轮播图 */}
-                    <ul className="bannerBox" style={{ width: `${bannerNum * 100}%`, transform: `translate3d(-${states / 8 * 100}%,0,0)`, opacity: opacitys, transition: `all 2s ease-in-out` }}>
+                    <ul className="bannerBox" style={{ width: `${bannerNum * 100}%`, transform: `translate3d(-${states / 9 * 100}%,0,0)`, opacity: opacitys, transition: `all 2s ease-in-out` }}>
                         {bannerList}
                     </ul>
                 </div>
