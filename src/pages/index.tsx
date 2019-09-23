@@ -1,9 +1,11 @@
-import Recommend from "./FindMusic/FindMusicChild/Recommend/Recommend";
-import Friends from "./Friends/Friends";
-import MusicDowload from './MusicDowload/MusicDowload';
-import MusicPeople from "./MusicPeople/MusicPeople";
-import MusicShop from "./MusicShop/MusicShop";
-import MyMusic from "./MyMusic/MyMusic";
+
+import loadable from "@loadable/component";
+const Recommend = loadable(() => import("./FindMusic/FindMusicChild/Recommend/Recommend"));
+const Friends = loadable(() => import("./Friends/Friends"));
+const MusicDowload = loadable(() => import('./MusicDowload/MusicDowload'));
+const MusicPeople = loadable(() => import("./MusicPeople/MusicPeople"));
+const MusicShop = loadable(() => import("./MusicShop/MusicShop"));
+const MyMusic = loadable(() => import("./MyMusic/MyMusic"));
 
 import  PagesType  from '../components/Type/Type';
 

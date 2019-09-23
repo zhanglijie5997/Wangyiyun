@@ -1,10 +1,11 @@
-import * as React from 'react'
-import RecommendHeader from './Header/RecommendHeader';
+import * as React from 'react';
+import loadable from "@loadable/component";
+const RecommendHeader = loadable(() => import("./Header/RecommendHeader"));
+const RecommendBody = loadable(() => import("./Body/RecommendBody"));
 import "./Recommend.scss";
 import IndexHttp from '../../../../utils/Http/HttpList/IndexHttp';
 import ThemeColor from './Provider/Provider';
 import { RecommendState } from 'src/components/Type/Recommend';
-import RecommendBody from './Body/RecommendBody';
 
 export default class Recommend extends React.Component {
     public state: RecommendState;

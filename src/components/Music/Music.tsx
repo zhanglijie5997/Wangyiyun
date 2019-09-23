@@ -1,8 +1,8 @@
 import * as React from 'react'
 import './Music.scss';
 // import MusicCenter from "./MusicCenter/MusicCenter";
-import loadable from "@loadable/component";
 import AudioHttp from '../../utils/Http/HttpList/Audio';
+import loadable from "@loadable/component";
 const MusicCenter = loadable(() => import("./MusicCenter/MusicCenter"))
 export default function Music() {
     const [playAudio, setPlayAudio] = React.useState<boolean>(false); // 设置音频播放还是暂停

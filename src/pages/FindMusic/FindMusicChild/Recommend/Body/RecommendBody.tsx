@@ -1,9 +1,11 @@
 import * as React from 'react';
 import  "./RecommendBody.scss";
-import MusicList from '../../../../../components/MusicList/MusicList';
+import loadable from "@loadable/component";
+const MusicList = loadable(() => import("../../../../../components/MusicList/MusicList"));
+const BodyChild = loadable(() => import("./BodyChild/BodyChild"));
+const NewCdList = loadable(() => import('./NewCdList/NewCdList'));
 import IndexHttp from '../../../../../utils/Http/HttpList/IndexHttp';
-import BodyChild from './BodyChild/BodyChild';
-import NewCdList from './NewCdList/NewCdList';
+
 
 const RecommendBody = (props:any):JSX.Element => {
     const [musicList,setMusicList] = React.useState<any[]>([]); // 推荐数据
