@@ -18,7 +18,7 @@
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
-    "experimentalDecorators":true
+    "experimentalDecorators":true,
   },
   "exclude": [
     "node_modules",
@@ -28,5 +28,11 @@
     "webpack",
     "jest",
     "src/setupTests.ts"
-  ]
+  ],
+  
+ /*  "paths": {
+    "@/*": [
+      "./src/*"
+    ]
+  }, */
 }

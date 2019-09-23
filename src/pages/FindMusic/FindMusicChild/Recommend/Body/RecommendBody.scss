@@ -1,3 +1,4 @@
+$bgColor:#C10D0C;
 .recommemdBodyHeader {
     background: #f5f5f5;
     min-height: 700px;
@@ -16,14 +17,84 @@
             border-left: 1px solid #d3d3d3;
             border-right: 1px solid #d3d3d3;
             border-bottom: 1px solid #d3d3d3;
+            padding: 20px;
+            .musicHeader {
+                width: 100%;
+                height: 35px;
+                border-bottom: 2px solid $bgColor;
+                display: flex;
+                align-items: center;
+                position: relative;
+                
+            }
+            .musicBody {
+                display: flex;
+                flex-wrap: wrap;
+                margin: 20px 0 0 -42px;
+            }
+            .newCd {
+                .newCdBody{
+                    border: 1px solid #d3d3d3;
+                    margin: 20px 0 37px;
+                    background: #f5f5f5;
+                    height: 188px;
+                    position: relative;
+                    cursor: pointer;
+                    span {
+                        display: inline-block;
+                        position: absolute;
+                        transition: 1s;
+                        &:hover {
+                            transform: scale(1.5)
+                        }
+                        &:nth-child(1) {
+                            left: 13px;
+                            top: calc(49% - 4px);
+                            transform: rotate(180deg);
+                            &:hover {
+                                transform: rotate(180deg) scale(1.5);
+                            }
+                        }
+                        &:last-child {
+                            right: 13px;
+                            top: calc(49% - 4px);
+                        }
+                        .icon-youjiantou:before{
+                            color:#898989
+                        }
+                    }
+                    .viewBox{
+                        width: 645px;
+                        margin: 33px auto;
+                        overflow: hidden;
+                        .leaderBorderDataBox{
+                            position: relative;
+                            width: 2580px;
+                            overflow: hidden;
+                            ul {
+                                float: left;
+                                width: 645px;
+                                // margin: 33px auto;
+                                li{
+                                    margin-left: 11px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
         // 右侧
         .recommemBodyRight {
             padding: 20px 0 20px 0;
-            width: 254px;
+            width: 265px;;
             min-height: 700px;
             border-right: 1px solid #d3d3d3;
             border-bottom: 1px solid #d3d3d3;
         }
     }
+}
+ul {
+    display: flex;
+    flex-wrap: wrap;
 }

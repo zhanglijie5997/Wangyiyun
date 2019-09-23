@@ -1,28 +1,17 @@
 import * as React from 'react';
 import './MusicCenter.scss';
-
-// import Audio from '../Audio/Audio';
-// import constructorImg from '../../../static/img/iconall.png'
 const MusicCenter = (props:any,ref:any) => {
-    // console.log(props,'>??')
-    // 进度条宽度
-    // const [x, setProgessWidth] = React.useState<number>(0);
-    // 结束距离
-    // const [l, setPos] = React.useState<number>(0);
-    // moveX
     const [movex,setMovex] = React.useState<number>(0);
-    // pointMove 
-    // const [pointMoves,setPointMove] = React.useState(0);
     // 判断是否离开可移动区间
     const [moveStatus, setMoveStatus] = React.useState<boolean>(false);
     // 进度点
     const point: any = React.useRef(null);
     // 进度盒子
     const progess: any = React.useRef(null);
-    const audioRef: any = React.useRef<any>(null); // audio 播放器实例
+    const audioRef: any = React.useRef<any>(0); // audio 播放器实例
     const [currentTime, setCurrentTime] = React.useState<number>(0); // 音乐播放时长
     const [ended, setEnded] = React.useState<boolean>(false); // 播放是否结束
-    const [musicLength, setMusicLength] = React.useState<any>(''); // 音乐总时长
+    const [musicLength, setMusicLength] = React.useState<any>('00:00'); // 音乐总时长
     const [nowLength, setNowLength] = React.useState<string>('00:00'); // 当前进度
     // 监听页面鼠标抬起事件
     React.useEffect(() => {
@@ -33,7 +22,10 @@ const MusicCenter = (props:any,ref:any) => {
                     const musictime = audioRef.current.duration;
                     console.log(musictime, 'llll===')
                     setMusicLength(getMusictime(audioRef.current.duration));
+                    audioRef.current.volume = 0.5;
                 }
+                // 设置音量
+                
             }
         },20)
         
@@ -47,13 +39,25 @@ const MusicCenter = (props:any,ref:any) => {
     }
     React.useEffect(() => {
         point.current.onmousedown = pointDown;
-    }, [])
+        console.log(props.audioVolume, 'props===--==');
+        audioRef.current.volume = props.audioVolume;
+    }, [props.audioVolume])
 
+    /**
+     * 设置音乐播放进度
+     * @param cur 拖拽进度
+     */
+    const setNowCurrentTime = (cur:number):void => {
+        const curSet = cur / 493 * audioRef.current.duration;
+        // console.log(curSet)
+        audioRef.current.currentTime = curSet;
+    }
     
 
     const progessDown = (e:any) => {
         const doc:any = document.getElementById("progess");
-
+        const moveDown:number = e.clientX - doc.getBoundingClientRect().x;
+        setNowCurrentTime(moveDown)
         setMovex(e.clientX - doc.getBoundingClientRect().x);
     }
     /**
@@ -63,9 +67,10 @@ const MusicCenter = (props:any,ref:any) => {
     const pointDown = (e:any) => {
         // setProgessWidth(e.clientX);
         const doc: any = document.getElementById("progess");
-
-        setMovex(e.clientX - doc.getBoundingClientRect().x )
+        const moveDown: number = e.clientX - doc.getBoundingClientRect().x;
         
+        setMovex(e.clientX - doc.getBoundingClientRect().x );
+        setNowCurrentTime(moveDown);
         progess.current.onmousemove = pointMove;
         progess.current.onmouseup = pointUp;
     }
@@ -76,8 +81,9 @@ const MusicCenter = (props:any,ref:any) => {
      */
     const pointMove = async (e: any) => {
         const doc: any = document.getElementById("progess")
-        console.log(doc.getBoundingClientRect(),'=,=')
+        // console.log(doc.getBoundingClientRect(),'=,=')
         // setPos(doc.getBoundingClientRect())
+
         setMovex(e.clientX - doc.getBoundingClientRect().x );
         const nl: number = e.clientX - doc.getBoundingClientRect().x ;
         if(nl < 0) {
@@ -88,48 +94,40 @@ const MusicCenter = (props:any,ref:any) => {
             }else {
                 setMovex(nl)
             }
-            
         }
-        
-        // setProgessWidth(e.offsetX);
-        // setPos(e.offsetX - 5);
+        const moveDown: number = e.clientX - doc.getBoundingClientRect().x;
+        setNowCurrentTime(moveDown)
     }
     /**
      * 抬起事件
      * @param e 移动内置对象
      */
     const pointUp = (e: any) => {
-        // console.log(e,'pointUp');
-        // setPos(e.offsetX-5)
-        // setProgessWidth(e.offsetX)
-        // setMovex(e.offsetX)
         progess.current.onmousemove = null;
     }
 
     // 离开清楚鼠标移动事件
     const mouseLeave = React.useCallback(() => {
-        console.log(`离开`);
-        // progess.current.onmousemove = null;
+        // console.log(`离开`);
         setMoveStatus(false)
-        // return 
     }, [])
 
     React.useImperativeHandle(ref, () => ({
         duration: () => audioRef.current.duration, // 音频时长
         endedMusic: () => ended,            // 播放是否结束
+        getVolume: () => audioRef.current.volume,
         // getBufferTime: () => getBufferTime(),  // 获取缓冲时间
         pause: () => audioRef.current.pause(), // 暂停音频
         play: () => audioRef.current.play(), // 播放音频
         timeUpdate: () => currentTime,  // 播放位置改变
-
+        getDuration: () => setCurrentTime(audioRef.current.duration)
     }))
-    console.log(movex)
-    
+    // console.log(movex)
     const getMusictime =  (musictime: number): string=> {
         const data:string =  calculation(musictime);
         return data;
     }
-
+    
     /**
      * 计算音乐时长
      * @param time 音乐时间长度
@@ -148,14 +146,18 @@ const MusicCenter = (props:any,ref:any) => {
         // console.log(currentTime)
         // setMovex(audioRef.current.currentTime);
         const $length: number = ((audioRef.current.currentTime / audioRef.current.duration) * 493) ;
-        console.log($length,'$length')
+        // console.log($length,'$length')
         setNowLength(calculation(audioRef.current.currentTime));
         setMovex($length);
         // setPointMove(audioRef.current.currentTime / 493)
     }, [currentTime, musicLength,nowLength]);
     
     // 是否播放完成
-    const endedMusic = React.useCallback(() => setEnded(true), []);
+    const endedMusic = (event: any) => {
+        setEnded(true);
+        console.log(props);
+        props.stopPlay();
+    }
     
     return (
         <div className="centerBox">

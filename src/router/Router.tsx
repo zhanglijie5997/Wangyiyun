@@ -43,7 +43,7 @@ class Router extends React.Component {
      */
     public changeRoute = (name: string, path: string) => {
         // tslint:disable-next-line:no-console
-        console.log(path, 'path')
+        // console.log(path, 'path')
         this.setState({
             defaultName: name
         });
@@ -86,13 +86,21 @@ class Router extends React.Component {
         })
          
     }
+    // 路由跳转选中跳转路由
+    public changeRouteDefaultName(lists: any, name: string,): void {
+        lists.forEach((item: IRouterList) => {
+            if (item.to === name) {
+                this.setState({
+                    findmusicLisDefaultName: item.classname
+                })
+            }
+        })
+    }
 
     public UNSAFE_componentWillUpdate(nextProps: any, nextState: any) {
-        // tslint:disable-next-line:no-console
-        // console.log(nextProps, nextState,'props')
         // tslint:disable-next-line:no-string-literal
-        if (this.props["showPopove"] !== nextProps.showPopove) {
-            // return true
+        if (this.props["location"].pathname !== nextProps["location"].pathname ) {
+            this.changeRouteDefaultName(FindMusicChild, nextProps.location.pathname);
         }
     }
 

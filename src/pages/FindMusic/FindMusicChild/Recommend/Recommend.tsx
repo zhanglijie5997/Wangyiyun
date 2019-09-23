@@ -13,19 +13,20 @@ export default class Recommend extends React.Component {
         super(props);
         this.state = {
             banner:'',
-            hotMusicList:[]
+            hotMusicList:{}
         };
         
     }
     public async componentDidMount():Promise<void> {
        // 请求banner数据
        const banner = await IndexHttp.banner();
-        const hotMusicList = await IndexHttp.hotMusicList();
+       const hotMusicList = await IndexHttp.hotMusicList();
         // console.log(banner);
        await this.setState({
            banner,
            hotMusicList
        });
+        // console.log(hotMusicList)
     }
 
     public  render() {
@@ -34,7 +35,7 @@ export default class Recommend extends React.Component {
             <div>
                 <ThemeColor.Provider value='#ff3030'> 
                     {this.state.banner ? <RecommendHeader  {...this.state.banner} />:null}
-                    {this.state.hotMusicList ? <RecommendBody {...this.state.hotMusicList}/> : null}
+                    {this.state.hotMusicList.tags ? <RecommendBody {...this.state.hotMusicList}/> : null}
                 </ThemeColor.Provider>
                 
             </div>

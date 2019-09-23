@@ -1,0 +1,52 @@
+.musicList {
+  width: 140px;
+  height: 204px;
+  padding: 0 0 32px 52px;
+  display: inline-block;
+  .link {
+    color: #ccc;
+    text-align: center;
+    line-height: 27px;
+    .listBox {
+      width: 140px;
+      height: 140px;
+      position: relative;
+      .mask {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background: url(../../static/img/coverall.png) no-repeat;
+        background-position: 0 0;
+      }
+      img {
+        width: 140px;
+        height: 140px;
+      }
+      .bottomMsg {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 27px;
+        background: url(../../static/img/coverall.png) no-repeat;
+        &:after {
+          content: "\E60A";
+          position: absolute;
+          right: 10px;
+        }
+      }
+      .icon-erji:before {
+        content: "\E602";
+        position: absolute;
+        left: 10px;
+      }
+    }
+    .description {
+      width: 100%;
+      white-space: inherit;
+      font-size: 14px;
+      color: #000;
+      text-decoration: none;
+      text-align: left;
+    }
+  }
+}

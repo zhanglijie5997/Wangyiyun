@@ -14,16 +14,16 @@ const Audio = (props:any,ref:any) => {
         
     }))
     React.useEffect(() => {
-        console.log(audioRef.current.__proto__,props,'ee') 
+        // console.log(audioRef.current.__proto__,props,'ee') 
     },[]);
     // 播放位置改变
     const timeupdate =  React.useCallback(() => {
         setCurrentTime(audioRef.current.currentTime);
-        console.log(currentTime)
+        // console.log(currentTime)
     }, [currentTime]);
     // 获取缓冲时间
     const getBufferTime = () => {
-        console.log(audioRef.current.duration)
+        // console.log(audioRef.current.duration)
         // const start = audioRef.current.start(0);
         // const end   = audioRef.current.end(0);
         // console.log(`${start} --- ${end} 开始到结束时间`)

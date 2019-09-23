@@ -115,28 +115,75 @@
       .volumnBox {
         padding-top: 5px;
         width: 160px;
-        a {
+        i {
           display: inline-block;
           background: url(../../static/img/playbar.png) repeat;
         }
-        a:nth-child(1),
-        a:nth-child(2) {
+        .zeroVolumn {
+          background-position: -409px -66px!important;
+          &:hover {
+            background-position: -431px -66px!important;
+          }
+        }
+        // 音乐开关
+        .volumeBox {
+            position: absolute;
+            width: 32px;
+            height: 113px;
+            background: rgba(46, 46, 46,.9);
+            bottom: 47px;
+            .volumeProgess{
+              width: 4px;
+              height: 93px;
+              background: red;
+              position: absolute;
+              left: 13px;
+              top: 15px;
+              border-radius: 4px 4px 0 4px;
+              .progessLength {
+                width: 100%;
+                height: 100%;
+                background: #333;
+                display: inline-block;
+                // border-radius: 4px;
+                transform: translateZ(0);
+              }
+              .volumeSwich {
+                background: url(/static/media/iconall.de77152c.png);
+                background-position: 3px -245px;
+                display: inline-block;
+                width: 30px;
+                height: 30px;
+                z-index: 999;
+                position: absolute;
+                /* top: 0; */
+                bottom: -6px;
+                left: -12px;
+              }
+            }
+        }
+
+        i:nth-child(1),
+        i:nth-child(2) {
           width: 25px;
           height: 25px;
         }
-        a:nth-child(1) {
+        i:nth-child(1) {
+          position: relative;
+          // background-position: -409px -66px;
           background-position: -2px -245px;
           &:hover {
+            // background-position: -431px -66px;
             background-position: -31px -245px;
           }
         }
-        a:nth-child(2) {
+        i:nth-child(2) {
           background-position: -66px -245px;
           &:hover {
             background-position: -93px -245px;
           }
         }
-        a:nth-child(3) {
+        i:nth-child(3) {
           width: 59px;
           height: 29px;
           background-position: -41px -63px;

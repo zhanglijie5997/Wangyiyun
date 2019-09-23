@@ -144,7 +144,7 @@ class LoginPopove extends React.Component {
             })
         }
         
-         console.log(this.state.loginType,'mm??')
+         // console.log(this.state.loginType,'mm??')
 
         if (!isLogin)  {return ;}
         // 否则请求接口

@@ -1,0 +1,82 @@
+$bgColor: #c10d0c;
+.bodyChildHeader {
+  height: 35px;
+  display: flex;
+  .headerLeft {
+    width: 35px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .circle {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: $bgColor;
+      position: relative;
+      &::after {
+        content: "";
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #fff;
+        left: calc(50% - 3px);
+        top: calc(50% - 3px);
+      }
+    }
+  }
+  .hot {
+    line-height: 35px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #333;
+  }
+  ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 7px 0 0 20px;
+    li {
+      color: #666;
+      font-size: 12px;
+      margin-right: 5px;
+      cursor: pointer;
+      height: 12px;
+      padding: 10px;
+      position: relative;
+      &::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        width: 1px;
+        height: 12px;
+        background: #999;
+      }
+      &:last-child::after {
+        width: 0px;
+      }
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  .more {
+    text-decoration: none;
+    position: absolute;
+    right: 17px;
+    font-size: 12px;
+    color: #666;
+    margin-top: 17px;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  .icon-youjiantou:before {
+    position: absolute;
+    right: -17px;
+    color: #c10d0c;
+  }
+}
