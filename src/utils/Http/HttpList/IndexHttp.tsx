@@ -49,5 +49,14 @@ class IndexHttp {
     public async topList(type: number): Promise<any> {
         return await HttpClient.init(`/top/list?idx=${type}`,{method: 'get'})
     }
+
+    /**
+     * 歌手分类列表
+     * @param cat   歌手类型
+     * @param limit 数量
+     */
+    public async artistList(cat: number,limit: number):Promise<any> {
+        return await HttpClient.init(`/artist/list?cat=${cat}&limit=${limit}`,{method:'get'})
+    }
 }
 export default IndexHttp.instance;

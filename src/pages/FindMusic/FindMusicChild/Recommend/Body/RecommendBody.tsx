@@ -4,7 +4,10 @@ import loadable from "@loadable/component";
 const MusicList = loadable(() => import("../../../../../components/MusicList/MusicList"));
 const BodyChild = loadable(() => import("./BodyChild/BodyChild"));
 const NewCdList = loadable(() => import('./NewCdList/NewCdList'));
+const RankList = loadable(() => import('./RankList/RankList'));
 import IndexHttp from '../../../../../utils/Http/HttpList/IndexHttp';
+import { Link } from 'react-router-dom';
+
 
 
 const RecommendBody = (props:any):JSX.Element => {
@@ -13,6 +16,9 @@ const RecommendBody = (props:any):JSX.Element => {
     const [newCdMargin,setNewCdMargin] = React.useState<number>(-645); // 左右滑动距离
     const [newCdTransition,setNewCdTransition] = React.useState<number>(2); // 轮播图过度时间
     const [time,setTime] = React.useState<any>(null); // 轮播定时器
+    const [rankListData,setRankListData] = React.useState<any>([]); // 榜单数据
+    const [artistList,setArtilstList] = React.useState<any[]>([]); // 常驻歌手数据
+
     React.useEffect(() => {
         // 首页推荐接口
         const getTopArtists = async (): Promise<any> => {
@@ -20,12 +26,18 @@ const RecommendBody = (props:any):JSX.Element => {
             const leaderBorderList = await IndexHttp.albumNewest();
             console.log(leaderBorderList);
             setLeaderBorderData(leaderBorderList.albums);
-            
-            Promise.all([IndexHttp.topList(3),IndexHttp.topList(0),IndexHttp.topList(2)])
+            const artistListData: any = await IndexHttp.artistList(5001,6);
+            // console.log(artistListData.artists,'oooo');
+            setArtilstList(artistListData.artists);
+            await Promise.all([IndexHttp.topList(3),IndexHttp.topList(0),IndexHttp.topList(2)])
             .then((res: any) => {
-                console.log(res,';;;;;;ppp')
+                
+                const topListData: any[] = res.map((item: any) => {
+                    return item.playlist;
+                });
+               
+                setRankListData(topListData)
             })
-            // console.log(data, musicList,'gggg');
             setMusicList(data.result);
         }
        getTopArtists();
@@ -36,12 +48,11 @@ const RecommendBody = (props:any):JSX.Element => {
         return lists.map((item:any,index:number) => {
             return (
                 <li key={index}>
-                    <ComponentsList item={item} className="musicLists" />
+                    <ComponentsList item={item} index={index} className="musicLists" />
                 </li>
                 
             )
         })
-        
     }
 
      
@@ -80,13 +91,56 @@ const RecommendBody = (props:any):JSX.Element => {
                 setNewCdTransition(0);
                 setNewCdMargin(-1290);
                 clearTimeout(times)
-            }, 2000)
+            }, 2000);
+            debugger;
             setTime(times)
             // setNewCdTransition(0);
             
         }
         return () => clearTimeout(time)
      }, [newCdMargin])
+    // 榜单
+    const rankListEle = ():JSX.Element[] => {
+        return rankListData.map((item: any,index: number) => {
+                return (<div key={index} className="rankListBox">
+                            <div className="rankListHeader">
+                                <div className="rankListImgBox">
+                                    <img src={item.coverImgUrl} alt="" className="rankImg"/>
+                                </div>
+                                <div className="rankListTextBox">
+                                    <p className="rankName">{item.name}</p>
+                                    <p className="rankPlay">
+                                        <Link to="/" className="rankListPlay"/>
+                                        <Link to="/" className="rankListCollection"/>
+                                    </p>
+                                </div>
+                                
+                            </div>
+                            <ul className="rankLists">
+
+                                    {   
+                                        musicTypeList(item.tracks.slice(0, 10), RankList)
+                                    }
+                                    
+                                </ul>
+                        </div>)
+            })
+    } 
+    
+    // 入驻歌手
+    const artistListEle: JSX.Element[] = artistList.map((item: any,index: number) => {
+        return (
+            <li key={index}>
+                <div className="artistListBox">
+                    <img src={item.img1v1Url} alt={item.name}/>
+                    <div className="aliasBox">
+                        <p>{item.alias.length > 0 ? (item.name + item.alias[0]) : item.name}</p>
+                        <p>{}</p>
+                    </div>
+                </div>
+            </li>
+        )
+    })
 
     return (
         <div className="recommemdBodyHeader">
@@ -134,17 +188,27 @@ const RecommendBody = (props:any):JSX.Element => {
                         <div className="leaderBoardHeader musicHeader">
                             <BodyChild tags={[]} to={'/'} name={'榜单'} />
                         </div>
-                        <div className="leaderBoardBody musicBody">
-                           
-                            <ul>
-                                {musicTypeList(musicList, MusicList)}
-                            </ul>
-                           
+                        <div className="leaderBoardBody">
+                            {rankListEle()}
                         </div>
                     </div>
                 </div>
+                {/* 右侧 */}
                 <div className="recommemBodyRight">
-                    22
+                    <div className="recommemRightHeader">
+                        <p>登录网易云音乐，可以享受无限收藏的乐趣，并且无限同步到手机</p>
+                        <div className="goLogin">用户登录</div>
+                    </div>
+                    {/* 入驻歌手 */}
+                    <div className="entering">
+                        <div className="enteringHeader">
+                            <span>入驻歌手</span>
+                            <span> <Link to="/">查看全部 ></Link>  </span>
+                        </div>
+                        <ul className="artistListEleBox">
+                            {artistListEle}
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

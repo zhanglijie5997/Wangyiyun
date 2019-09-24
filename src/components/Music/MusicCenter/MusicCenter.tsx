@@ -25,9 +25,8 @@ const MusicCenter = (props:any,ref:any) => {
                     audioRef.current.volume = 0.5;
                 }
                 // 设置音量
-                
             }
-        },20)
+        },200)
         
         document.addEventListener('mouseup', docMove);
         progess.current.onmousemove = null;
@@ -120,7 +119,7 @@ const MusicCenter = (props:any,ref:any) => {
         pause: () => audioRef.current.pause(), // 暂停音频
         play: () => audioRef.current.play(), // 播放音频
         timeUpdate: () => currentTime,  // 播放位置改变
-        getDuration: () => setCurrentTime(audioRef.current.duration)
+        getDuration: () => { setMusicLength(getMusictime(audioRef.current.duration));}
     }))
     // console.log(movex)
     const getMusictime =  (musictime: number): string=> {
