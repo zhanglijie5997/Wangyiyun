@@ -7,13 +7,14 @@ const MusicCenter = loadable(() => import("./MusicCenter/MusicCenter"))
 export default function Music() {
     const [playAudio, setPlayAudio] = React.useState<boolean>(false); // 设置音频播放还是暂停
     const [audioUrl,setAudioUrl] = React.useState('');// 音乐地址
+    const [audioState,setAudioState] = React.useState<object>({}); // 音乐数据
     const [centerShow,setCenter] = React.useState<boolean>(false);// 异步控制显示子组件
     const [audioVolume,setAudioVolume] = React.useState<number>(0.5); // 播放器音量
     const [showControlVolume,setControlVolume] = React.useState<boolean>(false); // 显示控制音量面板
     const [controlLength,setControlLength] = React.useState<number>(0); // 音量进度条高度
     const volumeProgess:any = React.useRef(null); // 进度条盒子ref
     const progessLength = React.useRef(null); // 进度条ref
-
+    
     // 控制音频
     const useAudioRef: any = React.useRef(null);
     // 播放音频
@@ -41,7 +42,10 @@ export default function Music() {
     }, [centerShow]);
     // 获取音乐数据
     const getMusicUrlAddress = async () => {
-        const data = await AudioHttp.getMusicUrl('1382308543');
+        const musiclist: any = await AudioHttp.search('海阔天空'); // 搜索关键词音乐
+        console.log(musiclist.result.songs[0].id,'musiclist');
+        setAudioState(musiclist.result.songs[0])
+        const data = await AudioHttp.getMusicUrl(musiclist.result.songs[0].id); // 搜索音乐地址
         // console.log(data, '音乐数据');
         await setAudioUrl(data.data[0].url);
     }
@@ -73,6 +77,7 @@ export default function Music() {
     // 设置音量盒子
     const volumeBox:JSX.Element | null = (showControlVolume ? <div className="volumeBox" >
         <div className="volumeProgess" onMouseDown={progessMouseDown} ref={volumeProgess} id="volumeProgess" >
+            
             <span className="progessLength" style={{ height: `${controlLength}px` }} ref={progessLength} id="progessLength"/>
             <span className="volumeSwich" style={{ top: (controlLength - 20) < -8 ? -8 : (controlLength - 20)+ 'px' }}/>
         </div>
@@ -96,10 +101,11 @@ export default function Music() {
                     <div className="constructorCenter">
                         {audioUrl && centerShow? 
                             <MusicCenter 
-                            audioUrl={audioUrl} 
-                            ref={useAudioRef} 
-                            audioVolume={audioVolume} 
-                            stopPlay={stopPlay}
+                                audioUrl={audioUrl} 
+                                ref={useAudioRef} 
+                                audioVolume={audioVolume} 
+                                stopPlay={stopPlay}
+                                audioState={audioState}
                             />
                         :null}
                     </div>

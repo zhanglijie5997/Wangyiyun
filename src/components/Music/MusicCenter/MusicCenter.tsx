@@ -1,5 +1,6 @@
 import * as React from 'react';
 import './MusicCenter.scss';
+import { Link } from 'react-router-dom';
 const MusicCenter = (props:any,ref:any) => {
     const [movex,setMovex] = React.useState<number>(0);
     // 判断是否离开可移动区间
@@ -15,12 +16,12 @@ const MusicCenter = (props:any,ref:any) => {
     const [nowLength, setNowLength] = React.useState<string>('00:00'); // 当前进度
     // 监听页面鼠标抬起事件
     React.useEffect(() => {
-        console.log(audioRef.current.src);
+        // console.log(props,'prop');
         setTimeout(() => {
             if (props.audioUrl && audioRef && audioRef.current.duration > 0) {
                 if (toString.call(audioRef.current.duration) === "[object Number]" && audioRef.current.duration.toString() !== "NaN") {
-                    const musictime = audioRef.current.duration;
-                    console.log(musictime, 'llll===')
+                    // const musictime = audioRef.current.duration;
+                    // console.log(musictime, 'llll===')
                     setMusicLength(getMusictime(audioRef.current.duration));
                     audioRef.current.volume = 0.5;
                 }
@@ -38,7 +39,7 @@ const MusicCenter = (props:any,ref:any) => {
     }
     React.useEffect(() => {
         point.current.onmousedown = pointDown;
-        console.log(props.audioVolume, 'props===--==');
+        // console.log(props.audioVolume, 'props===--==');
         audioRef.current.volume = props.audioVolume;
     }, [props.audioVolume])
 
@@ -162,10 +163,18 @@ const MusicCenter = (props:any,ref:any) => {
         <div className="centerBox">
             {/* 左侧图片 */}
             <div className="musicImg">
-                <a href="javscript:;" />
+                <a href="javscript:void(0);" style={{ background: `url(${props.audioState.artists[0].img1v1Url}) no-repeat`,backgroundSize:`cover` }}/>
             </div>
             {/* 进度条 */}
             <div className="progess" ref={progess} onMouseLeave={mouseLeave} id="progess" onMouseDown={progessDown}>
+                <div className="songMsg">
+                    <Link to="/">
+                        {props.audioState.album.name}
+                    </Link>
+                    <Link to="/">
+                        {props.audioState.artists[0].name}
+                    </Link>
+                </div>
                 <div className="progessBar" style={{ width: movex  + 'px' }} >
                     <span ref={point} style={{ left: `${movex  - 11}px` }}/>
                 </div>

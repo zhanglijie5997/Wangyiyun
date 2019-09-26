@@ -27,6 +27,31 @@
     position: relative;
     background: url(../../../static/img/statbar.png) no-repeat;
     background-position: 0 28px;
+    .songMsg{
+        position: absolute;
+        left: 0;
+        top: 0;
+        color:#e8e8e8;
+        font-size: 12px;
+        height: 25px;
+        
+        a{
+          text-decoration: none;
+          line-height: 25px;
+          &:nth-child(1) {
+            font-weight: 450;
+            color: #fff;
+
+          }
+          &:nth-child(2) {
+            margin-left:15px;
+            color: #e8e8e8;
+          }
+          &:hover{
+            text-decoration:underline;
+          }
+        }
+      }
     .progessBar {
       position: relative;
       width: 0%;

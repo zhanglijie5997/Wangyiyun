@@ -24,7 +24,7 @@ const RecommendBody = (props:any):JSX.Element => {
         const getTopArtists = async (): Promise<any> => {
             const data: any = await IndexHttp.personalized(8);
             const leaderBorderList = await IndexHttp.albumNewest();
-            console.log(leaderBorderList);
+            // console.log(leaderBorderList);
             setLeaderBorderData(leaderBorderList.albums);
             const artistListData: any = await IndexHttp.artistList(5001,6);
             // console.log(artistListData.artists,'oooo');
@@ -208,6 +208,13 @@ const RecommendBody = (props:any):JSX.Element => {
                         <ul className="artistListEleBox">
                             {artistListEle}
                         </ul>
+                    </div>
+                    {/* 热门主播 */}
+                    <div className="hotPeople entering">
+                        <div className="enteringHeader">
+                            <span>热门主播</span>
+                            <span /> 
+                        </div>
                     </div>
                 </div>
             </div>

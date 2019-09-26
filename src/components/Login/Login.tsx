@@ -8,6 +8,8 @@ import { connect } from "react-redux";
 import actionsStore from "../../redux/actions/actions";
 // import Toast from '../Toast/Toast';
 // import LoginPopove from "./LoginPopove/LoginPopove";
+
+
 const mapStateToProps = (state:any) => ({
     showPopove: state.showPopove,
     // showToast : state
@@ -66,6 +68,7 @@ class Login extends React.Component {
 
     public async goLogin(icon:string,name:string):Promise<void> {
         const self =this;
+        
         // tslint:disable-next-line:no-bitwise
         if(~icon.indexOf("shouji") || ~icon.indexOf("youxiang")) {
             // tslint:disable-next-line:no-string-literal

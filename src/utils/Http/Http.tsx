@@ -39,9 +39,9 @@ class HttpClient {
      * @param url    地址
      * @param param1 axios内容 必须包含data
      */
-    public async init(url: string, { ...params }: any): Promise<any> {
+    public async init(url: string, { ...params }: any, baseUrl: string = "http://localhost:3000/"): Promise<any> {
         const axiosInit = axios.create({
-            baseURL: "http://localhost:3000/",   
+            baseURL: baseUrl,   
             method: "GET",
             timeout: 10000,
             ...params,

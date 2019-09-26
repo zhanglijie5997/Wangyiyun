@@ -65,6 +65,21 @@
   dependencies:
     regenerator-runtime "^0.13.2"
 
+"@babel/runtime@^7.6.0":
+  version "7.6.2"
+  resolved "https://registry.npm.taobao.org/@babel/runtime/download/@babel/runtime-7.6.2.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40babel%2Fruntime%2Fdownload%2F%40babel%2Fruntime-7.6.2.tgz#c3d6e41b304ef10dcf13777a33e7694ec4a9a6dd"
+  integrity sha1-w9bkGzBO8Q3PE3d6M+dpTsSppt0=
+  dependencies:
+    regenerator-runtime "^0.13.2"
+
+"@loadable/component@^5.10.2":
+  version "5.10.3"
+  resolved "https://registry.npm.taobao.org/@loadable/component/download/@loadable/component-5.10.3.tgz#e1ad811ac4834a6ed187605d8464351d0c52896f"
+  integrity sha1-4a2BGsSDSm7Rh2BdhGQ1HQxSiW8=
+  dependencies:
+    "@babel/runtime" "^7.6.0"
+    hoist-non-react-statics "^3.3.0"
+
 "@types/axios@^0.14.0":
   version "0.14.0"
   resolved "https://registry.npm.taobao.org/@types/axios/download/@types/axios-0.14.0.tgz#ec2300fbe7d7dddd7eb9d3abf87999964cafce46"
@@ -124,6 +139,13 @@
   version "0.0.29"
   resolved "https://registry.npm.taobao.org/@types/json5/download/@types/json5-0.0.29.tgz#ee28707ae94e11d2b827bcbe5270bcea7f3e71ee"
   integrity sha1-7ihweulOEdK4J7y+UnC86n8+ce4=
+
+"@types/loadable__component@^5.10.0":
+  version "5.10.0"
+  resolved "https://registry.npm.taobao.org/@types/loadable__component/download/@types/loadable__component-5.10.0.tgz#178fdc401983f4f93647fac778226da7b8c1e080"
+  integrity sha1-F4/cQBmD9Pk2R/rHeCJtp7jB4IA=
+  dependencies:
+    "@types/react" "*"
 
 "@types/node@*", "@types/node@^12.7.2":
   version "12.7.2"
@@ -212,6 +234,11 @@
   integrity sha1-8evh5UEVGAcuT9/KXHbhbnTBOZo=
   dependencies:
     redux "*"
+
+"@types/swiper@^4.4.5":
+  version "4.4.5"
+  resolved "https://registry.npm.taobao.org/@types/swiper/download/@types/swiper-4.4.5.tgz#49e864ca955b2bc11556831d55722c96836b3ef5"
+  integrity sha1-SehkypVbK8EVVoMdVXIsloNrPvU=
 
 abab@^1.0.3:
   version "1.0.4"
@@ -2809,6 +2836,13 @@ dom-urls@^1.1.0:
   integrity sha1-AB3fgWKM0ecGElxxdvU8zsVdkY4=
   dependencies:
     urijs "^1.16.1"
+
+dom7@^2.1.3:
+  version "2.1.3"
+  resolved "https://registry.npm.taobao.org/dom7/download/dom7-2.1.3.tgz#a736f9c3bfbc4ca039a81cd095f97d1d7f3de19c"
+  integrity sha1-pzb5w7+8TKA5qBzQlfl9HX894Zw=
+  dependencies:
+    ssr-window "^1.0.1"
 
 domain-browser@^1.1.1:
   version "1.2.0"
@@ -8743,6 +8777,11 @@ sshpk@^1.7.0:
     safer-buffer "^2.0.2"
     tweetnacl "~0.14.0"
 
+ssr-window@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.npm.taobao.org/ssr-window/download/ssr-window-1.0.1.tgz#30752a6a4666e7767f0b7e6aa6fc2fdbd0d9b369"
+  integrity sha1-MHUqakZm53Z/C35qpvwv29DZs2k=
+
 ssri@^5.2.4:
   version "5.3.0"
   resolved "https://registry.npm.taobao.org/ssri/download/ssri-5.3.0.tgz#ba3872c9c6d33a0704a7d71ff045e5ec48999d06"
@@ -8989,6 +9028,14 @@ sw-toolbox@^3.4.0:
   dependencies:
     path-to-regexp "^1.0.1"
     serviceworker-cache-polyfill "^4.0.0"
+
+swiper@^5.0.3:
+  version "5.0.3"
+  resolved "https://registry.npm.taobao.org/swiper/download/swiper-5.0.3.tgz#d8ac9447cd1f61b515a61a98dec4c4420efeb675"
+  integrity sha1-2KyUR80fYbUVphqY3sTEQg7+tnU=
+  dependencies:
+    dom7 "^2.1.3"
+    ssr-window "^1.0.1"
 
 symbol-observable@^1.2.0:
   version "1.2.0"

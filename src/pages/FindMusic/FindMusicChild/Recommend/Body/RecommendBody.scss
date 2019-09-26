@@ -248,19 +248,34 @@ $bgColor:#C10D0C;
                 }
 
                 .artistListEleBox{
+                    background: #fafafa;
+                   
+                    
                     li{
+                        margin-top: 14px;
                         display: block;
                         .artistListBox{
                             display: flex;
+                            border: 1px solid #e9e9e9;
                             img{
                                 width: 62px;
+
                             }
                             .aliasBox{
+                                padding-left: 14px;
+                                font-size: 14px;
+                                font-weight: 450;
+                                margin-top: 8px;
                                 
                             }
                         }
                     }
                 }
+            }
+
+            // 热门主播
+            .hotPeople {
+                margin-top: 30px;
             }
         }
     }
