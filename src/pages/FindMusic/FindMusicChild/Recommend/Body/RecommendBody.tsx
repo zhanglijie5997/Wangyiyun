@@ -7,7 +7,7 @@ const NewCdList = loadable(() => import('./NewCdList/NewCdList'));
 const RankList = loadable(() => import('./RankList/RankList'));
 import IndexHttp from '../../../../../utils/Http/HttpList/IndexHttp';
 import { Link } from 'react-router-dom';
-import LoginPopove from '../../../../../components/Login/LoginPopove/LoginPopove';
+// import LoginPopove from '../../../../../components/Login/LoginPopove/LoginPopove';
 import { useDispatch, useStore } from 'react-redux';
 import actionsStore from 'src/redux/actions/actions';
 // import actionsStore from '../../../../../redux/actions/actions';
@@ -232,7 +232,6 @@ const RecommendBody = (props:any):JSX.Element => {
                     </div>
                 </div>
             </div>
-            {store.getState().showPopove.show ? <LoginPopove />: null} 
         </div>
     );
 }
