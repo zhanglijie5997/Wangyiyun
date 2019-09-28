@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import loadable from "@loadable/component";
+
 const App = loadable(() => import('./App'));
 import './index.scss';
 import registerServiceWorker from './registerServiceWorker';

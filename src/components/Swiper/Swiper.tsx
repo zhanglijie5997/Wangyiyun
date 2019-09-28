@@ -1,18 +1,33 @@
 import * as React from 'react';
 import Swipers from 'swiper';
+import "./Swiper.scss";
 import 'swiper/css/swiper.min.css'
 const Swiper = (props: any) => {
     const [getSwiper,setSwiper] = React.useState<any>();
     const swiperRef: any = React.useRef();
     React.useEffect(() => {
         const swiper = new Swipers(swiperRef.current,{
-            autoplay:{
-                stopOnLastSlide:true
+            // 自动轮播
+            autoplay: {
+                delay: 3000,
+                // stopOnLastSlide: false,
+                disableOnInteraction: false,
             },
             loop: true, // 循环模式选项
             // 如果需要分页器
             pagination: {
                 el: '.swiper-pagination',
+                // dynamicBullets: true,
+                clickable: true, // 点击分页器
+            },
+            // 左右切换
+            navigation: {
+                nextEl: '.right',
+                prevEl: '.left',
+            },
+            // 延迟加载
+            lazy: {
+                loadPrevNext: true,
             },
         })
         setSwiper(swiper)

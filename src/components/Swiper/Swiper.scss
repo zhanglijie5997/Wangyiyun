@@ -1,0 +1,12 @@
+.swiper-container{
+    --swiper-theme-color: #ff6600;
+    --swiper-pagination-color: #c20c0c;/* 两种都可以 */
+     .swiper-pagination-bullet-active{
+        transition: .5s;
+         width: 20px;
+         border-radius: 5px;
+         transform-origin: left;
+    }
+    
+  }
+  

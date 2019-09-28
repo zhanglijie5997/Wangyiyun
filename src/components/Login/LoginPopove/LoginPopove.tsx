@@ -75,7 +75,7 @@ class LoginPopove extends React.Component {
         })
         setTimeout(() => {
             self.changePopoveStateStatus(false,'phone')
-        },1500)
+        },100)
         
     }
     /**

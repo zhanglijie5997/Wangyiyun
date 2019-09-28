@@ -7,6 +7,11 @@ const NewCdList = loadable(() => import('./NewCdList/NewCdList'));
 const RankList = loadable(() => import('./RankList/RankList'));
 import IndexHttp from '../../../../../utils/Http/HttpList/IndexHttp';
 import { Link } from 'react-router-dom';
+import LoginPopove from '../../../../../components/Login/LoginPopove/LoginPopove';
+import { useDispatch, useStore } from 'react-redux';
+import actionsStore from 'src/redux/actions/actions';
+// import actionsStore from '../../../../../redux/actions/actions';
+
 
 
 
@@ -19,6 +24,8 @@ const RecommendBody = (props:any):JSX.Element => {
     const [rankListData,setRankListData] = React.useState<any>([]); // 榜单数据
     const [artistList,setArtilstList] = React.useState<any[]>([]); // 常驻歌手数据
 
+    const dispatch = useDispatch(); // redux
+    const store = useStore();
     React.useEffect(() => {
         // 首页推荐接口
         const getTopArtists = async (): Promise<any> => {
@@ -142,6 +149,13 @@ const RecommendBody = (props:any):JSX.Element => {
         )
     })
 
+    // 显示登陆弹窗
+    const showLoginPopove = React.useCallback(() => {
+        
+        dispatch(actionsStore.setPopoveState({ show: true,type:'phone'}));
+        console.log(store.getState())
+    }, [dispatch])
+    
     return (
         <div className="recommemdBodyHeader">
             <div className="recommemdBody">
@@ -197,7 +211,7 @@ const RecommendBody = (props:any):JSX.Element => {
                 <div className="recommemBodyRight">
                     <div className="recommemRightHeader">
                         <p>登录网易云音乐，可以享受无限收藏的乐趣，并且无限同步到手机</p>
-                        <div className="goLogin">用户登录</div>
+                        <div className="goLogin" onClick={showLoginPopove}>用户登录</div>
                     </div>
                     {/* 入驻歌手 */}
                     <div className="entering">
@@ -218,6 +232,7 @@ const RecommendBody = (props:any):JSX.Element => {
                     </div>
                 </div>
             </div>
+            {store.getState().showPopove.show ? <LoginPopove />: null} 
         </div>
     );
 }

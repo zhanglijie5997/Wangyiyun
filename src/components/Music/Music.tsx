@@ -3,7 +3,8 @@ import './Music.scss';
 // import MusicCenter from "./MusicCenter/MusicCenter";
 import AudioHttp from '../../utils/Http/HttpList/Audio';
 import loadable from "@loadable/component";
-const MusicCenter = loadable(() => import("./MusicCenter/MusicCenter"))
+const MusicCenter = loadable(() => import("./MusicCenter/MusicCenter"));
+import { message } from "antd";
 export default function Music() {
     const [playAudio, setPlayAudio] = React.useState<boolean>(false); // 设置音频播放还是暂停
     const [audioUrl,setAudioUrl] = React.useState('');// 音乐地址
@@ -51,6 +52,7 @@ export default function Music() {
     }
     // 显示更改音量界面
     const changeVolumn = (e:Event | undefined) => React.useCallback(() => {
+        message.success("打开设置面板成功")
         setControlVolume(!showControlVolume);
         const nowVolumeLength: number = useAudioRef.current.getVolume() * 93;
         setControlLength(nowVolumeLength)

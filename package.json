@@ -70,6 +70,7 @@
     "@types/swiper": "^4.4.5",
     "antd": "^3.22.0",
     "axios": "^0.19.0",
+    "babel-plugin-import": "^1.12.2",
     "http-proxy-middleware": "^0.19.1",
     "node-sass": "^4.12.0",
     "react-redux": "^7.1.0",
@@ -134,7 +135,11 @@
       "react-app"
     ],
     "plugins": [
-      "@babel/plugin-syntax-dynamic-import"
+      "@babel/plugin-syntax-dynamic-import",
+      ["import",{
+        "libraryName": "antd",
+        "style": true
+      }]
     ]
   },
   "proxy": {
