@@ -7,14 +7,14 @@ const MusicCenter = loadable(() => import("./MusicCenter/MusicCenter"));
 // import { message } from "antd";
 export default function Music() {
     const [playAudio, setPlayAudio] = React.useState<boolean>(false); // 设置音频播放还是暂停
-    const [audioUrl,setAudioUrl] = React.useState('');// 音乐地址
+    const [audioUrl,setAudioUrl] = React.useState<string>('');// 音乐地址
     const [audioState,setAudioState] = React.useState<object>({}); // 音乐数据
     const [centerShow,setCenter] = React.useState<boolean>(false);// 异步控制显示子组件
     const [audioVolume,setAudioVolume] = React.useState<number>(0.5); // 播放器音量
     const [showControlVolume,setControlVolume] = React.useState<boolean>(false); // 显示控制音量面板
     const [controlLength,setControlLength] = React.useState<number>(0); // 音量进度条高度
-    const volumeProgess: any = React.useRef(); // 进度条盒子ref
-    const progessLength = React.useRef(null); // 进度条ref
+    const volumeProgess: React.RefObject<HTMLDivElement> = React.useRef(null); // 进度条盒子ref
+    const progessLength: React.RefObject<HTMLDivElement> = React.useRef(null); // 进度条ref
     
     // 控制音频
     const useAudioRef: any = React.useRef(null);
@@ -69,7 +69,7 @@ export default function Music() {
         console.log(event.target.getBoundingClientRect().top, docNode.getBoundingClientRect().top,'mmmm')
         setAudioVolume(nowVolume < 1 ? nowVolume : 1);
         // console.log(nowVolume);
-        volumeProgess.current.onmousemove = changeVolumeDown;
+        volumeProgess.current!.onmousemove = changeVolumeDown;
     }
 
     React.useEffect(() => {

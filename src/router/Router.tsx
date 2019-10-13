@@ -16,9 +16,10 @@ import "./Router.scss"
 
 import LoginPopove from '../components/Login/LoginPopove/LoginPopove';
 import { connect } from "react-redux";
+import { ShowPopoveType } from 'src/components/Type/ReduxType';
 
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: { showPopove: ShowPopoveType }) => ({
     showPopove: state.showPopove
 })
 
@@ -26,7 +27,7 @@ const mapStateToProps = (state: any) => ({
 class Router extends React.Component {
     public state: IRouterState;
 
-    constructor(props: any) {
+    constructor(props: { showPopove: ShowPopoveType}) {
         super(props);
         // tslint:disable-next-line:no-console
         // console.log(props)
