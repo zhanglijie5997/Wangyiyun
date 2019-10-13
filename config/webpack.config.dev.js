@@ -100,6 +100,7 @@ module.exports = {
       "pages"     :   "../src/pages",
       "component" :   "../src/components",
       "utils"     :   "../src/utils",
+      "static"    :   "../src/static",
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
       'react-native': 'react-native-web',

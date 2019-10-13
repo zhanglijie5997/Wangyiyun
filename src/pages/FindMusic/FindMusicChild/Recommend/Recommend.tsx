@@ -6,6 +6,7 @@ import "./Recommend.scss";
 import IndexHttp from '../../../../utils/Http/HttpList/IndexHttp';
 import ThemeColor from './Provider/Provider';
 import { RecommendState } from 'src/components/Type/Recommend';
+// import { debounce } from 'src/utils';
 
 export default class Recommend extends React.Component {
     public state: RecommendState;
@@ -18,7 +19,12 @@ export default class Recommend extends React.Component {
         };
         
     }
+    public scrollBack = (event: any)  => {
+        console.log(event,'iiii')
+    }
+
     public async componentDidMount():Promise<void> {
+        // const self = this;
        // 请求banner数据
        const banner = await IndexHttp.banner();
        const hotMusicList = await IndexHttp.hotMusicList();
@@ -27,6 +33,8 @@ export default class Recommend extends React.Component {
            banner,
            hotMusicList
        });
+       
+        // document.addEventListener("scroll", debounce(self.scrollBack,500))
         // console.log(hotMusicList)
     }
 

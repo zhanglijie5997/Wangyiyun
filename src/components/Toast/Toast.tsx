@@ -35,7 +35,8 @@ class Toast extends React.Component {
 
     public async componentDidMount():Promise<void> {
         // await this.changeAnimateStatus(500, true);
-       this.timer = await this.changeAnimateStatus(3000,true);
+    //    this.timer = await this.changeAnimateStatus(3000,true);
+        this.timer = await this.changeAnimateStatus(5000, false);
     }
 
     /**

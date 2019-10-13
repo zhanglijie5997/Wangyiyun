@@ -2,11 +2,15 @@ import * as React from 'react';
 import Swipers from 'swiper';
 import "./Swiper.scss";
 import 'swiper/css/swiper.min.css'
+
 const Swiper = (props: any) => {
-    const [getSwiper,setSwiper] = React.useState<any>();
-    const swiperRef: any = React.useRef();
+    const swiperRef: any = React.useRef(null);
+    
     React.useEffect(() => {
-        const swiper = new Swipers(swiperRef.current,{
+        const slideChangeFn = () => {
+            props.changeIndex(swiper.realIndex)
+        }
+        const swiper: Swipers = new Swipers(swiperRef.current,{
             // 自动轮播
             autoplay: {
                 delay: 3000,
@@ -29,10 +33,12 @@ const Swiper = (props: any) => {
             lazy: {
                 loadPrevNext: true,
             },
-        })
-        setSwiper(swiper)
-        return () => getSwiper()
-    },[])
+            watchSlidesProgress: true,
+        });
+        // 监听索引改变
+        swiper.on('slideChange', slideChangeFn)
+        return () => swiper.destroy(true,false)
+    }, [])
     const bannerList = props.banners.map((data: any, index: number): JSX.Element => {
         return (
             // <li key={index} style={{ background: `url(${data.imageUrl}) no-repeat` }} />
@@ -49,4 +55,4 @@ const Swiper = (props: any) => {
     );
 }
 
-export default Swiper;
+export default (Swiper);

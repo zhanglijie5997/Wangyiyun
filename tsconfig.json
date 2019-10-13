@@ -4,7 +4,7 @@
     "outDir": "build/dist",
     "module": "esnext",
     "target": "es5",
-    "lib": ["es6", "dom"],
+    "lib": ["esnext", "dom"],
     "sourceMap": true,
     "allowJs": true,
     "jsx": "react",
@@ -17,8 +17,17 @@
     "importHelpers": true,
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "experimentalDecorators":true,
+    "allowUnusedLabels": true, // 不报告未使用标签错误
+    "diagnostics": true, // 显示诊断信息
+    "paths": {
+      "@/": ["src/"],
+      "@/components": ["src/components"],
+      "@/static": ["src/static"],
+      "@/utils": ["src/utils"],
+      "@/pages": ["src/pages"]
+    }
   },
   "exclude": [
     "node_modules",

@@ -6,31 +6,31 @@ const MusicCenter = (props:any,ref:any) => {
     // 判断是否离开可移动区间
     const [moveStatus, setMoveStatus] = React.useState<boolean>(false);
     // 进度点
-    const point: any = React.useRef(null);
+    const point: React.RefObject<HTMLSpanElement> = React.useRef(null);
     // 进度盒子
-    const progess: any = React.useRef(null);
-    const audioRef: any = React.useRef<any>(0); // audio 播放器实例
+    const progess: React.RefObject<HTMLDivElement> = React.useRef(null);
+    const audioRef: React.RefObject<HTMLAudioElement> = React.useRef(null); // audio 播放器实例
     const [currentTime, setCurrentTime] = React.useState<number>(0); // 音乐播放时长
     const [ended, setEnded] = React.useState<boolean>(false); // 播放是否结束
-    const [musicLength, setMusicLength] = React.useState<any>('00:00'); // 音乐总时长
+    const [musicLength, setMusicLength] = React.useState<string>('00:00'); // 音乐总时长
     const [nowLength, setNowLength] = React.useState<string>('00:00'); // 当前进度
     // 监听页面鼠标抬起事件
     React.useEffect(() => {
         // console.log(props,'prop');
         setTimeout(() => {
-            if (props.audioUrl && audioRef && audioRef.current.duration > 0) {
-                if (toString.call(audioRef.current.duration) === "[object Number]" && audioRef.current.duration.toString() !== "NaN") {
+            if (props.audioUrl && audioRef && audioRef.current!.duration > 0) {
+                if (toString.call(audioRef.current!.duration) === "[object Number]" && audioRef.current!.duration.toString() !== "NaN") {
                     // const musictime = audioRef.current.duration;
                     // console.log(musictime, 'llll===')
-                    setMusicLength(getMusictime(audioRef.current.duration));
-                    audioRef.current.volume = 0.5;
+                    setMusicLength(getMusictime(audioRef.current!.duration));
+                    audioRef.current!.volume = 0.5;
                 }
                 // 设置音量
             }
         },200)
         
         document.addEventListener('mouseup', docMove);
-        progess.current.onmousemove = null;
+        progess.current!.onmousemove = null;
         return () => document.removeEventListener('mouseup', docMove)
     }, [moveStatus, musicLength])
 
@@ -38,9 +38,9 @@ const MusicCenter = (props:any,ref:any) => {
         setMoveStatus(false)
     }
     React.useEffect(() => {
-        point.current.onmousedown = pointDown;
+        point.current!.onmousedown = pointDown;
         // console.log(props.audioVolume, 'props===--==');
-        audioRef.current.volume = props.audioVolume;
+        audioRef.current!.volume = props.audioVolume;
     }, [props.audioVolume])
 
     /**
@@ -48,9 +48,9 @@ const MusicCenter = (props:any,ref:any) => {
      * @param cur 拖拽进度
      */
     const setNowCurrentTime = (cur:number):void => {
-        const curSet = cur / 493 * audioRef.current.duration;
+        const curSet = cur / 493 * audioRef.current!.duration;
         // console.log(curSet)
-        audioRef.current.currentTime = curSet;
+        audioRef.current!.currentTime = curSet;
     }
     
 
@@ -71,8 +71,8 @@ const MusicCenter = (props:any,ref:any) => {
         
         setMovex(e.clientX - doc.getBoundingClientRect().x );
         setNowCurrentTime(moveDown);
-        progess.current.onmousemove = pointMove;
-        progess.current.onmouseup = pointUp;
+        progess.current!.onmousemove = pointMove;
+        progess.current!.onmouseup = pointUp;
     }
 
     /**
@@ -103,7 +103,7 @@ const MusicCenter = (props:any,ref:any) => {
      * @param e 移动内置对象
      */
     const pointUp = (e: any) => {
-        progess.current.onmousemove = null;
+        progess.current!.onmousemove = null;
     }
 
     // 离开清楚鼠标移动事件
@@ -113,14 +113,14 @@ const MusicCenter = (props:any,ref:any) => {
     }, [])
 
     React.useImperativeHandle(ref, () => ({
-        duration: () => audioRef.current.duration, // 音频时长
+        duration: () => audioRef.current!.duration, // 音频时长
         endedMusic: () => ended,            // 播放是否结束
-        getVolume: () => audioRef.current.volume,
+        getVolume: () => audioRef.current!.volume,
         // getBufferTime: () => getBufferTime(),  // 获取缓冲时间
-        pause: () => audioRef.current.pause(), // 暂停音频
-        play: () => audioRef.current.play(), // 播放音频
+        pause: () => audioRef.current!.pause(), // 暂停音频
+        play: () => audioRef.current!.play(), // 播放音频
         timeUpdate: () => currentTime,  // 播放位置改变
-        getDuration: () => { setMusicLength(getMusictime(audioRef.current.duration));}
+        getDuration: () => { setMusicLength(getMusictime(audioRef.current!.duration));}
     }))
     // console.log(movex)
     const getMusictime =  (musictime: number): string=> {
@@ -142,12 +142,12 @@ const MusicCenter = (props:any,ref:any) => {
 
     // 播放位置改变
     const timeupdate = React.useCallback(() => {
-        setCurrentTime(audioRef.current.currentTime);
+        setCurrentTime(audioRef.current!.currentTime);
         // console.log(currentTime)
         // setMovex(audioRef.current.currentTime);
-        const $length: number = ((audioRef.current.currentTime / audioRef.current.duration) * 493) ;
+        const $length: number = ((audioRef.current!.currentTime / audioRef.current!.duration) * 493) ;
         // console.log($length,'$length')
-        setNowLength(calculation(audioRef.current.currentTime));
+        setNowLength(calculation(audioRef.current!.currentTime));
         setMovex($length);
         // setPointMove(audioRef.current.currentTime / 493)
     }, [currentTime, musicLength,nowLength]);

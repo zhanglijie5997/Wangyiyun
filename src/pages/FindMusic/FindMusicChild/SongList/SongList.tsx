@@ -1,13 +1,15 @@
-import * as React from 'react'
-
+import * as React from 'react';
 import "./SongList.scss";
-
-export default class SongList extends React.Component {
-    public render() {
-        return (
-            <div>
-                SongList
+import SongListHeader from './SongListHeader/SongListHeader';
+const SongList = () => {
+    return (
+        <div className="songListPage">
+            <div className="songListBody">
+                {/* 头部 */}
+                <SongListHeader />
             </div>
-        )
-    }
+        </div>
+    );
 }
+
+export default SongList;

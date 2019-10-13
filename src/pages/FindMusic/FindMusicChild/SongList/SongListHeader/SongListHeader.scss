@@ -1,0 +1,157 @@
+$bgcolor: rgb(194, 12, 12);
+$textBgColor: rgb(248, 248, 248);
+$borderColor: rgb(190, 190, 190);
+// $bgimg:url(../../../../../static/img/sltlyr.png) no-repeat;
+.SongListHeaderPage {
+  width: 900px;
+  margin: 0 auto;
+  height: 42px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid $bgcolor;
+  position: relative;
+  .SongListHeaderPageLeft {
+    h3 {
+      width: 151px;
+      display: flex;
+      .allType {
+        font-size: 24px;
+      }
+      .choicType {
+        margin: -3px 0 0 12px;
+        font-size: 12px;
+        color: #0c73c2;
+        display: inline-block;
+        width: 91px;
+        height: 31px;
+        text-align: center;
+        line-height: 31px;
+        background: rgb(244, 244, 244);
+        border: 1px solid rgb(196, 196, 196);
+        border-radius: 3px;
+        position: relative;
+        display: flex;
+        cursor: pointer;
+        &:hover {
+          text-decoration: underline;
+        }
+        // background: url(../../../../../static/img/button2.png) no-repeat 0 9999px;
+        // background-position: right -100px;
+        em {
+          text-align: center;
+          &:nth-child(1) {
+            flex: 8;
+          }
+          &:nth-child(2) {
+            flex: 1;
+            position: relative;
+          }
+        }
+        .icon-xiangxia:before {
+          position: absolute;
+          right: 11px;
+          top: 1px;
+          font-size: 12px;
+        }
+      }
+    }
+  }
+  .SongListHeaderPageRight {
+    width: 46px;
+    height: 29px;
+    text-align: center;
+    line-height: 29px;
+    border-radius: 3px;
+    background: $bgcolor;
+    font-size: 12px;
+    color: #fff;
+    border: 1px solid #a92521;
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  .listType {
+    width: 720px;
+    height: 437px;
+    position: absolute;
+    top: 50px;
+    left: -30px;
+    border: 1px solid $borderColor;
+    border-radius: 4px;
+    box-shadow: -1px 2px 9px -2px rgb(51, 51, 51);
+    .triangle {
+      position: absolute;
+      left: 120px;
+      width: 28px;
+      height: 20px;
+      background: #fff;
+      top: -20px;
+      //   border: 1px solid rgb(190, 190, 190);
+      border-bottom: 0;
+      &::after {
+        content: "";
+        position: absolute;
+        width: 24px;
+        height: 1px;
+        /* -webkit-transform: rotate(45deg); */
+        box-shadow: 1px -1px 4px 1px #3333335e;
+        transform: rotate(-53deg);
+        background: rgb(190, 190, 190);
+        top: 9px;
+        left: -5px;
+      }
+      &::before {
+        content: "";
+        position: absolute;
+        width: 24px;
+        height: 1px;
+        /* -webkit-transform: rotate(45deg); */
+        box-shadow: 1px -1px 4px 1px #3333335e;
+        transform: rotate(53deg);
+        background: rgb(190, 190, 190);
+        top: 9px;
+        right: -4px;
+      }
+    }
+    .triangleHeader {
+      border-bottom: 1px solid #e6e6e6;
+      height: 60px;
+      display: flex;
+      /* justify-content: center; */
+      //   align-items: center;
+      padding-left: 26px;
+      h3 {
+        height: 38px;
+        display: block;
+        margin-top: 21px;
+        .allStyle {
+          height: 26px;
+          width: 75px;
+          border-radius: 4px;
+          border: 1px solid $borderColor;
+          font-size: 12px;
+          line-height: 26px;
+          color: #333;
+          display: block;
+          text-align: center;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+    .triangleBody {
+      margin-left: 26px;
+      dl {
+        display: flex;
+        font-size: 12px;
+        width: 100%;
+        dt {
+          width: 70px;
+          height: 27px;
+        }
+      }
+    }
+  }
+}

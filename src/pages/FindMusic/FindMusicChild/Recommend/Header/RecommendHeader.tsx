@@ -34,6 +34,26 @@ const bannerBgList = [
         id: 4,
         name: banner0,
     },
+    {
+        id: 5,
+        name: banner0,
+    },
+    {
+        id: 6,
+        name: banner1,
+    },
+    {
+        id: 7,
+        name: banner2,
+    },
+    {
+        id: 8,
+        name: banner3,
+    },
+    {
+        id: 9,
+        name: banner0,
+    },
 ]
 
 interface IPropsType {
@@ -41,9 +61,13 @@ interface IPropsType {
 }
 
 const RecommendHeader =  (props: IPropsType): JSX.Element  => {
-    const [states] = React.useState<number>(0);
-    
-    
+    const [states, setStates] = React.useState<number>(0);
+    // const swiperRef: any = React.useRef(null);
+    const changeIndex = (index: number) => {
+        setStates(index);
+        // console.log(index, ' index')
+        
+    }
     return (
         <div className="recommendHeader" style={{ background: `url(${bannerBgList[states].name}) repeat-x` }}>
             <div className="bannerWithDownload">
@@ -52,7 +76,7 @@ const RecommendHeader =  (props: IPropsType): JSX.Element  => {
                     {/* <ul className="bannerBox" style={{ width: `${5 * 100}%`, transform: `translate3d(-${states / 5 * 100}%,0,0)`, opacity: opacitys, transition: `all ${getTransition}s ease-in-out` }}>
                         {bannerList}
                     </ul> */}
-                    <Swiper {...props}/>
+                    <Swiper {...props}  changeIndex={changeIndex} />
                 </div>
                 {/* 下载 */}
                 <div className="downLoad">

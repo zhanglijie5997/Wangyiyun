@@ -94,7 +94,9 @@ class LoginPopove extends React.Component {
                  this.setState({
                      phoneInput: String(e.target.value),
                      phoneIsTrue: true,
-                 })
+                 });
+                 //  关闭登陆弹窗
+                //  this.changePopoveStateStatus(false,'phone')
              } else {
                  // console.log(this.state, '???')
                  this.setState({
@@ -150,6 +152,7 @@ class LoginPopove extends React.Component {
         // 否则请求接口
         if(this.state.phoneIsTrue && this.state.passwordIstrue) {
             this.changeToast("登陆成功");
+            this.closePopove()
         }
     }
 

@@ -161,6 +161,9 @@
                 /* top: 0; */
                 bottom: -6px;
                 left: -12px;
+                &:hover {
+                  background-position: 3px -275px;
+                }
               }
             }
         }
