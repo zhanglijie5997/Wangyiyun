@@ -38,10 +38,4 @@
     "jest",
     "src/setupTests.ts"
   ],
-  
- /*  "paths": {
-    "@/*": [
-      "./src/*"
-    ]
-  }, */
 }

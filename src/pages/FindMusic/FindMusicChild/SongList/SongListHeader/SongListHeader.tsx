@@ -1,9 +1,25 @@
 import * as React from 'react';
 import './SongListHeader.scss'
 import { Link } from 'react-router-dom';
+import { PlaylistCatlist } from '../../../../../utils/Http/SongList/SongList';
+import { GetListCategory, SubObject, SubType} from './SongListType/SongListType';
 const SongListHeader = () => {
     const [getShowList,setShowList] = React.useState<boolean>(false);
-    const [getListCategory, setListCategory] = React.useState<any[]>([])
+    const [getListCategory, setListCategory] = React.useState<GetListCategory>({}); // 语种
+    const [getSub, setSub] = React.useState<SubType[]>([]);
+    
+    React.useEffect(()=>{
+        getPlaylistCatlist();
+    },[])
+
+    // 请求分类接口
+    const getPlaylistCatlist = async () => {
+        const data: {sub: [], categories: GetListCategory} = await PlaylistCatlist();
+        setListCategory(data.categories);
+        setSub(data.sub)
+        console.log(getSub, '[[[')
+    }
+
     // 选择分类下啦列表
     const showChoicList = React.useCallback(() => { 
         setShowList(!getShowList)
@@ -20,16 +36,27 @@ const SongListHeader = () => {
                 </h3>
             </div>
             <div className="triangleBody">
-                <dl>
-                    <dt>语种</dt>
-                    <dd>
-                        <Link to="/">华语</Link>
-                    </dd>
-                </dl>
+                <ul className="listCateGoryUl">
+                {
+                    Object.values(getListCategory).map((item: string, index: number) => {
+                        return <li key={index} className="listCateGory">
+                                    <span>{item}</span> 
+                                    <ul className="getSub">
+                                        {getSub.map((data: SubType, i: number) => {
+                                            return data.category === index ? <li key={i}>{ data.name }</li> : null;
+                                        })}
+                                    </ul>
+                                </li>
+                    })
+                }
+                </ul>
             </div>
             <div className="triangleFoot" />
         </div>
     )
+
+    
+
     const SongListHeaderPageLeft: JSX.Element = (<div className="SongListHeaderPageLeft">
         <h3>
             <span className="allType"> 

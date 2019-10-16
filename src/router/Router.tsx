@@ -56,7 +56,7 @@ class Router extends React.Component {
      * 二级导航点击事件
      * @param name 二级导航样式
      */
-    public changeRouteFind = (name: string) => {
+    public changeRouteFind = (name: string): void => {
         this.setState({
             findmusicLisDefaultName: name
         })
@@ -88,7 +88,7 @@ class Router extends React.Component {
          
     }
     // 路由跳转选中跳转路由
-    public changeRouteDefaultName(lists: any, name: string,): void {
+    public changeRouteDefaultName(lists: IRouterList[], name: string,): void {
         lists.forEach((item: IRouterList) => {
             if (item.to === name) {
                 this.setState({
@@ -98,7 +98,7 @@ class Router extends React.Component {
         })
     }
 
-    public UNSAFE_componentWillUpdate(nextProps: any, nextState: any) {
+    public UNSAFE_componentWillUpdate(nextProps: {location: {pathname: string}}): void {
         // tslint:disable-next-line:no-string-literal
         if (this.props["location"].pathname !== nextProps["location"].pathname ) {
             this.changeRouteDefaultName(FindMusicChild, nextProps.location.pathname);
@@ -107,7 +107,7 @@ class Router extends React.Component {
 
     public render() {
         // Link 导航
-        const routerLink = list.map((item: IRouterList, index: number) => {
+        const routerLink: JSX.Element[] = list.map((item: IRouterList, index: number) => {
 
             let defaultName = this.state.defaultName;
             defaultName = defaultName.replace(/\"/g, '');
@@ -125,13 +125,13 @@ class Router extends React.Component {
         })
 
         // 页面
-        const routePage = (list.concat(FindMusicChild)).map((item: IRouterList, index: number) => {
+        const routePage: JSX.Element[] = (list.concat(FindMusicChild)).map((item: IRouterList, index: number) => {
             return (
                 <Route path={item.to} component={item.component} key={index} exact={true} />
             )
         })
         // 发现音乐二级路由
-        const findMusiceChild = FindMusicChild.map((item: IRouterList, index: number) => {
+        const findMusiceChild: JSX.Element[] = FindMusicChild.map((item: IRouterList, index: number) => {
             
             return (
                 // tslint:disable-next-line:jsx-no-lambda

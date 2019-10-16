@@ -39,6 +39,9 @@
               border: 1px solid #353535;
               border-width: 1px 0;
               display: flex;
+              .iconfont {
+                font-size: 18px;
+              }
               span:nth-child(1) {
                   flex: 1
               }

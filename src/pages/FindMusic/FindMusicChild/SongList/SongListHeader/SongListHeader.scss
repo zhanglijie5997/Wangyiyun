@@ -143,13 +143,64 @@ $borderColor: rgb(190, 190, 190);
     }
     .triangleBody {
       margin-left: 26px;
-      dl {
-        display: flex;
-        font-size: 12px;
-        width: 100%;
-        dt {
-          width: 70px;
-          height: 27px;
+      .listCateGoryUl {
+        // height: 50px;
+        .listCateGory {
+          position: relative;
+          &:nth-child(2) {
+            height: 126px;
+            span {
+              padding-top: 37px;
+            }
+            ul{
+              padding-top: 20px;
+            }
+          }
+          &:nth-child(4),&:nth-child(3)  {
+            height: 64px;
+          }
+          &:nth-child(5) {
+            height: 84px;
+          }
+          span {
+            width: 71px;
+            padding: 15px 0 0;
+            display: inline-block;
+            // border-right: 1px solid #e6e6e6;
+            height: 100%;
+          }
+          // display: flex;
+          .getSub {
+            display: inline-block;
+            width: calc(100% - 72px);
+            position: absolute;
+            top: 5px;
+            height: 100%;
+            border-left: 1px solid #e6e6e6;
+            // display: flex;
+            li {
+              &:nth-child(1) {
+                padding-left: 15px;
+              }
+              &:nth-child(12n) {
+                padding-left: 15px;
+              }
+              // &:nth-child(23) {
+              //   padding-left: 15px;
+              // }
+              margin-top: 6px;
+              font-size: 12px;
+              float: left;
+              padding-right: 14px;
+              border-right: 1px solid #e6e6e6;
+              padding-left: 13px;
+              line-height: 24px;
+              &:hover {
+                text-decoration: underline;
+                cursor: pointer;
+              }
+            }
+          }
         }
       }
     }

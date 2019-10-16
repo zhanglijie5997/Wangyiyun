@@ -136,10 +136,13 @@
     ],
     "plugins": [
       "@babel/plugin-syntax-dynamic-import",
-      ["import",{
-        "libraryName": "antd",
-        "style": true
-      }]
+      [
+        "import",
+        {
+          "libraryName": "antd",
+          "style": true
+        }
+      ]
     ]
   },
   "proxy": {

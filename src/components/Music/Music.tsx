@@ -39,7 +39,7 @@ export default function Music() {
     // 获取音乐数据
     const getMusicUrlAddress = async () => {
         const musiclist: any = await AudioHttp.search('海阔天空'); // 搜索关键词音乐
-        console.log(musiclist.result.songs[0].id,'musiclist');
+        console.log(musiclist,'musiclist');
         setAudioState(musiclist.result.songs[0])
         const data = await AudioHttp.getMusicUrl(musiclist.result.songs[0].id); // 搜索音乐地址
         // console.log(data, '音乐数据');
@@ -55,7 +55,7 @@ export default function Music() {
     }, [showControlVolume]);
 
     // 点击设置音量
-    const progessMouseDown = (event:any) => {
+    const progessMouseDown = (event: any) => {
         event.persist();
         // 距离顶部高度
         const docNode: HTMLElement = event.target;

@@ -4,13 +4,15 @@ import "./Toast.scss"
 
 import { connect } from "react-redux";
 import actionsStore from 'src/redux/actions/actions';
+import { Action, ActionFunction1 } from 'redux-actions';
+import { ShowPopoveType } from '../Type/ReduxType';
 
-const mapStateToProps = (state:any) => ({
+const mapStateToProps = (state: {toast:{ msg: string}}) => ({
     // tslint:disable-next-line:no-string-literal
     toast: state.toast
 })
 
-const mapDispatch = (dispatch:any) => {
+const mapDispatch = (dispatch: any) => {
     return {
         changeToastState: (payload: IToastMsg) => dispatch(actionsStore.setToastStatus({ ...payload })),
     }
@@ -19,7 +21,7 @@ const mapDispatch = (dispatch:any) => {
 class Toast extends React.Component {
     public state: IToastState;
     public timer: NodeJS.Timeout;
-    constructor(props:any) {
+    constructor(props:{toast: {show: boolean, msg: string}}) {
         super(props);
         // console.log(props,'toastProps')
         this.state = {

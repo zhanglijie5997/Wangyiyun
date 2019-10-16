@@ -74,6 +74,8 @@
               }
             }
             span:nth-child(1) {
+              display: inline-block;
+              width: 100%;
               position: relative;
               width: 44px;
               padding: 0 18px 0 5px;
@@ -81,6 +83,10 @@
               font-size: 12px;
               text-align: center;
               line-height: 30px;
+              input {
+                position: absolute;
+                left: 0;
+              }
             }
             .icon-xiangxia:before {
               position: absolute;

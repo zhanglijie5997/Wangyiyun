@@ -1,3 +1,7 @@
+
+
+
+
 // page/index 页面类型
 export default interface IRouterList {
     component: any,
@@ -8,10 +12,15 @@ export default interface IRouterList {
 }
 
 // redux/state/state   user数据类型
+type IUserState = string;
+interface IUserPayload {
+    user: string
+}
+
 export interface IUser {
-    email?  :  string,
-    phone   :  number,
-    username:  string
+    email?   :  string,
+    phone    :  number,
+    username :  string
 }
 // router/router  state类型
 export interface IRouterState  {
@@ -70,7 +79,7 @@ export interface IAppState {
 
 // components/Toast/Toast state类型
 export interface IToastMsg {
-    duation     :   number,
-    msg         :   string,
-    show        :   boolean
+    duation?     :   number,
+    msg?         :   string,
+    show?        :   boolean
 }
