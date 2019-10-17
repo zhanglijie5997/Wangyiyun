@@ -15,3 +15,9 @@ export interface SubType {
     category: number,
     name: string  ,
 }
+
+
+// props类型
+export interface Props {
+    choicName:(name: string) => void
+}

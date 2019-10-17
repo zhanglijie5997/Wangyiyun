@@ -1,17 +1,31 @@
-import * as React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './SongListHeader.scss'
 import { Link } from 'react-router-dom';
 import { PlaylistCatlist } from '../../../../../utils/Http/SongList/SongList';
-import { GetListCategory, SubObject, SubType} from './SongListType/SongListType';
-const SongListHeader = () => {
-    const [getShowList,setShowList] = React.useState<boolean>(false);
-    const [getListCategory, setListCategory] = React.useState<GetListCategory>({}); // 语种
-    const [getSub, setSub] = React.useState<SubType[]>([]);
+import { GetListCategory, SubType, Props} from './SongListType/SongListType';
+
+
+const SongListHeader = (props: Props) => {
+    const [getShowList,setShowList] = useState<boolean>(false);
+    const [getChoicState, setChoicState] = useState<string>("全部"); // 选中项目
+    const [getListCategory, setListCategory] = useState<GetListCategory>({}); // 语种
+    const [getSub, setSub] = useState<SubType[]>([]); // 歌单分类
     
-    React.useEffect(()=>{
+    useEffect(()=>{
+        // 进入请求分类
         getPlaylistCatlist();
     },[])
 
+    /**
+     * 选择的分类类型
+     * @param name 名称
+     */
+    const choicName = useCallback((name: string) => {
+        setChoicState(name);
+        props.choicName(name)
+    }, [getChoicState])
+
+    
     // 请求分类接口
     const getPlaylistCatlist = async () => {
         const data: {sub: [], categories: GetListCategory} = await PlaylistCatlist();
@@ -21,11 +35,10 @@ const SongListHeader = () => {
     }
 
     // 选择分类下啦列表
-    const showChoicList = React.useCallback(() => { 
+    const showChoicList = useCallback(() => { 
         setShowList(!getShowList)
     }, [getShowList]);
-    // const listCategory:JSX.Element[] =
-
+    
     // 列表
     const listType: JSX.Element = (
         <div className="listType">
@@ -43,7 +56,7 @@ const SongListHeader = () => {
                                     <span>{item}</span> 
                                     <ul className="getSub">
                                         {getSub.map((data: SubType, i: number) => {
-                                            return data.category === index ? <li key={i}>{ data.name }</li> : null;
+                                            return data.category === index ? <li key={i} onClick={() => choicName(data.name)}>{ data.name }</li> : null;
                                         })}
                                     </ul>
                                 </li>
@@ -54,13 +67,10 @@ const SongListHeader = () => {
             <div className="triangleFoot" />
         </div>
     )
-
-    
-
     const SongListHeaderPageLeft: JSX.Element = (<div className="SongListHeaderPageLeft">
         <h3>
             <span className="allType"> 
-                全部
+                { getChoicState }
             </span>
             <span className="choicType" onClick={showChoicList}>
                <em> 选择分类</em>

@@ -72,6 +72,8 @@ $borderColor: rgb(190, 190, 190);
     }
   }
   .listType {
+    background: #fff;
+    z-index: 99;
     width: 720px;
     height: 437px;
     position: absolute;

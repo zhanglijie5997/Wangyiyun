@@ -1,8 +1,9 @@
 import * as React from "react";
 import "./MusicList.scss";
 import { Link } from 'react-router-dom';
+import { MusicListType } from './MusicListType/MusicListType';
 // import banner from "../../static/img/loading.gif";
-const MusicList = (props: any) => {
+const MusicList = (props: MusicListType) => {
     // console.log(props,'..===');
     const [playCount,setPlayCount] = React.useState<string>(''); // 播放量
     React.useEffect(() => {
