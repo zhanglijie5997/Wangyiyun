@@ -15,7 +15,7 @@ const MusicList = (props: MusicListType) => {
             <Link to="/" className="link">
                 <div className="listBox">
                     <div className="mask"/>
-                    <img src={props.item.picUrl} alt="图片"/>
+                    <img src={props.item.picUrl || props.item.creator.backgroundUrl} alt="图片"/>
                     <div className="bottomMsg iconfont icon-erji icon-bofang">
                         {playCount}
                     </div>

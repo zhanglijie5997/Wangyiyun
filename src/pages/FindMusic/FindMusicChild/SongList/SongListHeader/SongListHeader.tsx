@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import './SongListHeader.scss'
 import { Link } from 'react-router-dom';
-import { PlaylistCatlist } from '../../../../../utils/Http/SongList/SongList';
+import { PlaylistCatlist, TopPlaylist } from '../../../../../utils/Http/SongList/SongList';
 import { GetListCategory, SubType, Props} from './SongListType/SongListType';
+
 
 
 const SongListHeader = (props: Props) => {
@@ -22,7 +23,8 @@ const SongListHeader = (props: Props) => {
      */
     const choicName = useCallback((name: string) => {
         setChoicState(name);
-        props.choicName(name)
+        props.choicName(name);
+        setShowList(false)
     }, [getChoicState])
 
     
@@ -39,6 +41,13 @@ const SongListHeader = (props: Props) => {
         setShowList(!getShowList)
     }, [getShowList]);
     
+    // 点击热门
+    const hotMusicList = useCallback(async () => {
+        // props.choicName("hot")
+        props.choicName("全部", "hot");
+
+    },[])
+
     // 列表
     const listType: JSX.Element = (
         <div className="listType">
@@ -78,7 +87,7 @@ const SongListHeader = (props: Props) => {
             </span>
         </h3>
     </div>)
-    const SongListHeaderPageRight: JSX.Element = (<div className="SongListHeaderPageRight">
+    const SongListHeaderPageRight: JSX.Element = (<div className="SongListHeaderPageRight" onClick={hotMusicList}>
         热门
     </div>)
     

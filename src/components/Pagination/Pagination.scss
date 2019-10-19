@@ -1,0 +1,42 @@
+.pagination {
+    display: flex;
+    .pageWidgetBox{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /depp/ ul li{
+            width: 24.69px;
+            height: 24px;
+        }
+        .onPage {
+            // width: 24.69px;
+            border-radius: 5px;
+            height: 24px;
+            border: 1px solid #eee;
+            border-radius: 2px;
+            text-align: center;
+            line-height: 24px;
+            padding: 0px 10px;
+            cursor: pointer;
+            font-size: 12px;
+            line-height: 24px;
+            text-align: center;
+        }
+        .paginationBox{
+            border-radius: 5px;
+            width: 24.69px;
+            height: 24px;
+            border: 1px solid #eee;
+            font-size: 12px;
+            text-align: center;
+            line-height: 24px;
+            margin: 0 3px 0 3px;
+            cursor: pointer;
+        }
+    }
+}
+.active{
+    color: #c20c0c;
+    border:1px solid #c20c0c!important;
+}

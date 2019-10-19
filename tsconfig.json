@@ -22,6 +22,7 @@
     "allowUnusedLabels": true, // 不报告未使用标签错误
     "diagnostics": true, // 显示诊断信息
     "allowSyntheticDefaultImports": true,
+   
     "paths": {
       "@/": ["src/"],
       "@/components": ["src/components"],

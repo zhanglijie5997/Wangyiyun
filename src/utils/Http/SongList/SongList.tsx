@@ -12,7 +12,12 @@ export const PlaylistCatlist = async (): Promise<any> => {
  * 歌单
  * @param name 歌单名称
  */
-export const TopPlaylist = async (name: string = "全部"): Promise<any> => {
-    return await HttpClient.init(`/top/playlist?cat=${name}`,{method: "post"})
+export const TopPlaylist = async (name: string = "全部", order?: string): Promise<any> => {
+    if(!order) {
+        return await HttpClient.init(`/top/playlist?cat=${name}`,{method: "post"})
             .then(res => res)
+    }
+    return await HttpClient.init(`/top/playlist?cat=${name}&order=${order}`,{method: "post"})
+            .then(res => res)
+    
 }

@@ -145,7 +145,7 @@ class Router extends React.Component {
 
         return (
             <div className="router-view">
-               
+                <div className="tabBarBox">
                     <div className="tabBar">
                         <nav className="navBar">
                             <h1 className="logo">
@@ -176,6 +176,7 @@ class Router extends React.Component {
                         {this.state.defaultName.replace(/\"/g, '') ===  "recommend" ? findMusiceChild : null}
                         </ul>
                     </div>
+                </div>
                 <Switch> {routePage}</Switch>
                     
                 

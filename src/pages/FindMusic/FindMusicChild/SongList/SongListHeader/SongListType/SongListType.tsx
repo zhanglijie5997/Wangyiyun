@@ -19,5 +19,5 @@ export interface SubType {
 
 // props类型
 export interface Props {
-    choicName:(name: string) => void
+    choicName:(name: string, hot?: string) => void
 }
