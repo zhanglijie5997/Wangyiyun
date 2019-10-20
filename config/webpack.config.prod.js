@@ -14,7 +14,9 @@ const paths = require('./paths');
 const getClientEnvironment = require('./env');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-
+const CompressionPlugin = require("compression-webpack-plugin");
+const HappyPack = require("happypack");
+const happyThreadPool = HappyPack.ThreadPool({ size: 5 });
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
 const publicPath = paths.servedPath;
@@ -56,7 +58,8 @@ module.exports = {
   bail: true,
   // We generate sourcemaps in production. This is slow but gives good results.
   // You can exclude the *.map files from the build during deployment.
-  devtool: shouldUseSourceMap ? 'source-map' : false,
+  // devtool: shouldUseSourceMap ? 'source-map' : false,
+  devtool: false,
   // In production, we only want to load the polyfills and the app code.
   entry: [require.resolve('./polyfills'), paths.appIndexJs],
   output: {
@@ -120,6 +123,7 @@ module.exports = {
       // Make sure your source files are compiled, as they will not be processed in any way.
       new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson]),
       new TsconfigPathsPlugin({ configFile: paths.appTsProdConfig }),
+      
     ],
   },
   module: {
@@ -130,6 +134,7 @@ module.exports = {
       // { parser: { requireEnsure: false } },
       {
         test: /\.(js|jsx|mjs)$/,
+        // use: "happypack/loader?id=js",
         loader: require.resolve('source-map-loader'),
         enforce: 'pre',
         include: paths.appSrc,
@@ -153,6 +158,7 @@ module.exports = {
             test: /\.(js|jsx|mjs)$/,
             include: paths.appSrc,
             loader: require.resolve('babel-loader'),
+            
             options: {
               
               compact: true,
@@ -188,6 +194,7 @@ module.exports = {
           {
             test: /\.css|scss$/,
             loader: ExtractTextPlugin.extract(
+              
               Object.assign(
                 {
                   fallback: {
@@ -197,8 +204,10 @@ module.exports = {
                     },
                   },
                   use: [
+                    // 'happypack/loader?id=styles',
                     {
-                      loader: require.resolve('css-loader'),
+                      // loader: require.resolve('css-loader'),
+                      loader: require.resolve('fast-css-loader'),
                       options: {
                         importLoaders: 1,
                         minimize: true,
@@ -226,7 +235,10 @@ module.exports = {
                       },
                     },
                     {
-                      loader:require.resolve("sass-loader")
+                      // loader:require.resolve("sass-loader"),
+                     
+                      loader:require.resolve("fast-sass-loader"),
+
                     }
                   ],
                 },
@@ -245,7 +257,7 @@ module.exports = {
             // it's runtime that would otherwise processed through "file" loader.
             // Also exclude `html` and `json` extensions so they get processed
             // by webpacks internal loaders.
-            exclude: [/\.(js|jsx|mjs)$/, /\.html$/, /\.json$/,/\.scss/],
+            exclude: [/\.(js|jsx|mjs)$/, /\.html$/, /\.json$/,/\.scss/,/node_module/],
             options: {
               name: 'static/media/[name].[hash:8].[ext]',
             },
@@ -262,7 +274,26 @@ module.exports = {
     // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
     // In production, it will be an empty string unless you specify "homepage"
     // in `package.json`, in which case it will be the pathname of that URL.
-    
+    // 使用happypack提高构建速度
+    new HappyPack({
+      id: "js",
+      threadPool: happyThreadPool,
+      loaders: ['babel-loader']
+    }),
+    new HappyPack({
+      id: "styles",
+      threadPool: happyThreadPool,
+      loaders: ['style-loader', 'css-loader', 'sass-loader']
+    }),
+    // 添加 gzip
+    new CompressionPlugin({
+      filename: '[path].gz[query]',
+      algorithm: 'gzip',
+      test: /\.(js|html)$/,
+      threshold: 10240,
+      minRatio: 0.8,
+      deleteOriginalAssets: false
+    }),
     // Generates an `index.html` file with the <script> injected.
     new HtmlWebpackPlugin({
       inject: true,

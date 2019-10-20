@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { PlaylistCatlist, TopPlaylist } from '../../../../../utils/Http/SongList/SongList';
 import { GetListCategory, SubType, Props} from './SongListType/SongListType';
 import eventBus from 'src/components/EventBus/EventBus';
+import { MapArgs } from 'src/components/EventBus/EventBus';
 
 
 
@@ -23,6 +24,7 @@ const SongListHeader = (props: Props) => {
      * @param name 名称
      */
     const choicName = useCallback((name: string) => {
+        // const EmitValue = ;
         setChoicState(name);
         props.choicName(name);
         setShowList(false);

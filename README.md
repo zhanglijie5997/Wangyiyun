@@ -2,7 +2,7 @@
 
 🔥                  react-router + react-router-redux + scss + http-proxy-middleware                                             🔥
 
-🚀                  项目hooks使用率 >= 95%😄, 体验全新的函数式编程 , UI 数据分离, 组件抽离                                               🚀
+🚀                  项目hooks使用率 >= 95%😄, 体验全新的函数式编程 , UI 数据分离, 组件抽离 ,  使用一些设计模式                              🚀
 
 💐                 🌿 所有ui组件全部手写, 不依赖第三方库 , 更新较慢😅                                                                   💐 
 
@@ -19,6 +19,7 @@
 🔥                  接口使用https://github.com/Binaryify/NeteaseCloudMusicApi 感谢大佬的开源                                          🔥 
 
 ## 备注: 
+
     ``` javascript
 
         1, 为什么使用TypeScript ? 绝不是跟风, 类型约束真的是很爽 组件 数据类型很明确, 注释详细 无缝接盘
