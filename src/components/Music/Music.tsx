@@ -1,4 +1,4 @@
-import * as React from 'react'
+import  React, { useCallback, useEffect } from 'react'
 import './Music.scss';
 // import MusicCenter from "./MusicCenter/MusicCenter";
 import AudioHttp from '../../utils/Http/HttpList/Audio';
@@ -37,14 +37,21 @@ export default function Music() {
 
     
     // 获取音乐数据
-    const getMusicUrlAddress = async () => {
+    const getMusicUrlAddress = useCallback(async () => {
         const musiclist: any = await AudioHttp.search('海阔天空'); // 搜索关键词音乐
-        console.log(musiclist,'musiclist');
+        console.log(musiclist, 'musiclist');
         setAudioState(musiclist.result.songs[0])
         const data = await AudioHttp.getMusicUrl(musiclist.result.songs[0].id); // 搜索音乐地址
         // console.log(data, '音乐数据');
         await setAudioUrl(data.data[0].url);
-    }
+    },[]);
+    
+    useEffect(() => {
+        getMusicUrlAddress(); 
+    },[])
+    
+
+
     // 显示更改音量界面
     const changeVolumn = (e:Event | undefined) => React.useCallback(() => {
         // message.success("打开设置面板成功")
@@ -73,7 +80,7 @@ export default function Music() {
     }
 
     React.useEffect(() => {
-        getMusicUrlAddress(); 
+        
         setTimeout(() => {
             setCenter(true);
         }, 200)

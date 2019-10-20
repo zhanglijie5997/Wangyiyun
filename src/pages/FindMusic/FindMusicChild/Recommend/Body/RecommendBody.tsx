@@ -28,7 +28,7 @@ const RecommendBody = (props:any):JSX.Element => {
     const store = useStore();
     React.useEffect(() => {
         // 首页推荐接口
-        const getTopArtists = async (): Promise<any> => {
+        const getTopArtists = async (): Promise<void> => {
             const data: any = await IndexHttp.personalized(8);
             const leaderBorderList = await IndexHttp.albumNewest();
             // console.log(leaderBorderList);
@@ -47,7 +47,7 @@ const RecommendBody = (props:any):JSX.Element => {
             })
             setMusicList(data.result);
         }
-       getTopArtists();
+        getTopArtists();
     },[])
     // 音乐列表
     // tslint:disable-next-line:ban-types

@@ -1,53 +1,51 @@
-class EventBus {
-    private events: any = null;
-    constructor() {
-        this.events = this.events || new Object();
-    }
-    public $emit(type: string, ...args: any): void {
-        let e;
-        e = this.events[type];
-        // 查看这个type的event有多少个回调函数，如果有多个需要依次调用。
-        if (Array.isArray(e)) {
-            // tslint:disable-next-line:prefer-for-of
-            for (let i = 0; i < e.length; i++) {
-                // cc.log(e[i], 'hhh')
-                e[i].apply(this, args);
-            }
-        } else {
-            e[0].apply(this, args);
-        }
-    }
+/**
+ * EventBus 事件监听
+ */
 
-    public $on(type: string, fun: () => any) {
-
-        const e = this.events[type];
-
-
-        if (!e) {   // 如果从未注册过监听函数，则将函数放入数组存入对应的键名下
-            this.events[type] = [fun];
-
-        } else {  // 如果注册过，则直接放入
-            e.push(fun);
-        }
-    }
-
-    public $off(type: string, fun: () => any) {
-        // const e = this.events[type];
-        const KEY = Object.keys(this.events);
-        let slice1: string;
-        // tslint:disable-next-line:prefer-for-of
-        for (let i = 0; i < KEY.length; i++) {
-            if (KEY[i] === type) {
-                // cc.log(KEY[i], '5555');
-                slice1 = KEY[i];
-                delete (this.events[slice1])
-            }
-        }
-       
-    }
-
+type MapArgsType = string | [] | object | symbol | null | undefined;
+interface MapArgs {
+    [key: string]: () => MapArgsType
 }
+class EventBus {
+    public static instance: EventBus = new EventBus();
+    private eventsMap: Map<string, MapArgs[]>;
+    constructor() {
+        this.eventsMap = new Map()
+    }
+    /**
+     * 注册事件
+     * @param name 事件名称
+     * @param args 事件参数, 可选参数
+     */
+    public Emit(name: string , args?: any):void {
+        if(toString.call(args) === "[object Funcction]") {
+            throw TypeError(`args type is Function, don't use Function`)
+        }
+        this.eventsMap.set(name, args);
+    }
 
-const eventBus = new EventBus();
+    /**
+     * 获取事件
+     * @param name 事件名称
+     * @param fn 
+     */
+    public On(name: string, fn: (args: any) => void): void {
+        const getNameFn = this.eventsMap.get(name);
+        const getNameFnType: string = toString.call(getNameFn);
+        switch (getNameFnType) {
+            case "[object Array]" :
+            case "[object Object]":
+                fn.apply(this, ...getNameFn)
+                break;
+            default:
+                fn.call(this, getNameFn);
+                break;
+        }
+    }
 
-export default eventBus;
+    public Off(name: string): void {
+        this.eventsMap.delete(name)
+    }
+   
+}
+export default EventBus.instance;

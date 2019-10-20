@@ -3,6 +3,7 @@ import './SongListHeader.scss'
 import { Link } from 'react-router-dom';
 import { PlaylistCatlist, TopPlaylist } from '../../../../../utils/Http/SongList/SongList';
 import { GetListCategory, SubType, Props} from './SongListType/SongListType';
+import eventBus from 'src/components/EventBus/EventBus';
 
 
 
@@ -24,7 +25,8 @@ const SongListHeader = (props: Props) => {
     const choicName = useCallback((name: string) => {
         setChoicState(name);
         props.choicName(name);
-        setShowList(false)
+        setShowList(false);
+        eventBus.Emit("type", name)
     }, [getChoicState])
 
     

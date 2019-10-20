@@ -5,13 +5,10 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        /depp/ ul li{
-            width: 24.69px;
-            height: 24px;
-        }
+        
         .onPage {
             // width: 24.69px;
-            border-radius: 5px;
+            border-radius: 8px;
             height: 24px;
             border: 1px solid #eee;
             border-radius: 2px;
@@ -33,6 +30,9 @@
             line-height: 24px;
             margin: 0 3px 0 3px;
             cursor: pointer;
+        }
+        .firstPage, .lastPage{
+            color: #e8e0e0;
         }
     }
 }
