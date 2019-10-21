@@ -1,8 +1,12 @@
-import React, { useEffect, useCallback, useState } from 'react'
+import React, { useEffect, useCallback, useState, useMemo } from 'react'
 import './SongListBody.scss'
 import { TopPlaylist, TopPlaylistHighquality } from 'src/utils/Http/SongList/SongList';
-import MusicList from '../../../../../components/MusicList/MusicList';
-import  Pagination  from 'src/components/Pagination/Pagination';
+import loadable from "@loadable/component";
+const MusicList = loadable(() => import("../../../../../components/MusicList/MusicList"));
+const Pagination = loadable(() => import('src/components/Pagination/Pagination'));
+
+// import MusicList from '../../../../../components/MusicList/MusicList';
+// import  Pagination  from 'src/components/Pagination/Pagination';
 import eventBus from 'src/components/EventBus/EventBus';
 
 const SongListBody  = (props: {name: string , getHot: string}) => {
@@ -11,6 +15,7 @@ const SongListBody  = (props: {name: string , getHot: string}) => {
     const [getDefaultToal,setDefaultToal] = useState<number>(35); // 默认显示条数
     const [getNowChoicPage, setNowChoicPage] = useState<number>(1); // 选择的分页
     const [getUpdateTime, setUpdateTime] = useState<number>(0); // 最后一个列表的updateTime, 用于请求分页
+    const [getMusicType, setMusicType] = useState<string>("全部"); // 选择的音乐列表分类
     useEffect(() => {
         getChoicNameList(props.name, props.getHot);
         eventBus.On("type", busFn);
@@ -18,7 +23,8 @@ const SongListBody  = (props: {name: string , getHot: string}) => {
     },[props.name, props.getHot]);
 
     const busFn = (msg: string) => {
-      console.log(msg, 'msg')
+      console.log(msg, 'msg');
+      setMusicType(msg)
     }
 
     /**
@@ -48,9 +54,16 @@ const SongListBody  = (props: {name: string , getHot: string}) => {
      */
     const changePagination = useCallback(async (index: number) => {
       console.log(index, `请求页码`);
-      const data = await TopPlaylistHighquality(getDefaultToal, index, ) 
-      setNowChoicPage(index)
-    }, [getNowChoicPage]) 
+      
+      setNowChoicPage(index);
+      const data = await TopPlaylistHighquality(getDefaultToal * getNowChoicPage, getUpdateTime, getMusicType);
+      setMusicListState(data.playlists.slice(getDefaultToal * (getNowChoicPage - 1), data.playlists.length));
+      window.scrollTo(0,0);
+      console.log(data)
+    }, [getNowChoicPage, getMusicListState]) ;
+    useEffect(() => {
+      setMusicListState(getMusicListState)
+     }, [getMusicListState])
   return (
     <div className="SongListBody">
         <ul>

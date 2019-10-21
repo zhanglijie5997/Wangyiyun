@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { PlaylistCatlist, TopPlaylist } from '../../../../../utils/Http/SongList/SongList';
 import { GetListCategory, SubType, Props} from './SongListType/SongListType';
 import eventBus from 'src/components/EventBus/EventBus';
-import { MapArgs } from 'src/components/EventBus/EventBus';
+
 
 
 

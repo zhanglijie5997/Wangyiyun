@@ -1,7 +1,11 @@
 import  React, { useEffect, useState, useCallback } from 'react';
 import "./SongList.scss";
-import SongListHeader from './SongListHeader/SongListHeader';
-import SongListBody from './SongListBody/SongListBody';
+import loadable from "@loadable/component";
+const SongListHeader = loadable(() => import("./SongListHeader/SongListHeader"));
+const SongListBody = loadable(() => import("./SongListBody/SongListBody"));
+
+// import SongListHeader from './SongListHeader/SongListHeader';
+// import SongListBody from './SongListBody/SongListBody';
 
 const SongList = () => {
     const [getName, setName] = useState<string>("全部"); // 选中歌单
