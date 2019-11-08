@@ -10,8 +10,8 @@
   "rules":{
     "no-debugger": false,
     "no-console": false,
-    //声明interface是否需要首字母为大写的I
-    "interface-name": false,
+    "no-empty-interface":true,
+    "interface-name":false, // 接口开头不必用I
     //需要按字母顺序引入模块
     "ordered-imports": false,
     // jsx中匿名函数

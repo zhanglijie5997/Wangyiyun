@@ -96,11 +96,11 @@ module.exports = {
       '.jsx',
     ],
     alias: {
-      "@"         :   "../src",
-      "@/pages"     :   "../src/pages",
-      "@/component" :   "../src/components",
-      "@/utils"     :   "../src/utils",
-      "@/static"    :   "../src/static",
+      "@": path.join(__dirname, "../src" )  ,
+      "@/pages": path.join(__dirname, "../src/pages")  ,
+      "@/component": path.join(__dirname, "../src/components")  ,
+      "@/utils": path.join(__dirname, "../src/utils") ,
+      "@/static": path.join(__dirname, "../src/static") ,
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
       'react-native': 'react-native-web',

@@ -20,6 +20,7 @@ const happyThreadPool = HappyPack.ThreadPool({ size: 5 });
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
 const publicPath = paths.servedPath;
+console.log(publicPath, 'publicPath')
 // Some apps do not use client-side routing with pushState.
 // For these, "homepage" can be set to "." to enable relative asset paths.
 const shouldUseRelativeAssetPaths = publicPath === './';
@@ -47,9 +48,9 @@ const cssFilename = 'static/css/[name].[contenthash:8].css';
 // To have this structure working with relative paths, we have to use custom options.
 const extractTextPluginOptions = shouldUseRelativeAssetPaths
   ? // Making sure that the publicPath goes back to to build folder.
-    { publicPath: Array(cssFilename.split('/').length).join('./') }
+    { publicPath: Array(cssFilename.split('/').length).join('../') }
   : {};
-
+console.log(extractTextPluginOptions, '66666')
 // This is the production configuration.
 // It compiles slowly and is focused on producing a fast and minimal bundle.
 // The development configuration is different and lives in a separate file.
@@ -106,11 +107,11 @@ module.exports = {
       '.jsx',
     ],
     alias: {
-      "@": "../src",
-      "@/pages": "../src/pages",
-      "@/component": "../src/components",
-      "@/utils": "../src/utils",
-      "@/static": "../src/static",
+      "@": path.join(__dirname, "../src"),
+      "@/pages": path.join(__dirname, "../src/pages"),
+      "@/component": path.join(__dirname, "../src/components"),
+      "@/utils": path.join(__dirname, "../src/utils"),
+      "@/static": path.join(__dirname, "../src/static"),
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
       'react-native': 'react-native-web',

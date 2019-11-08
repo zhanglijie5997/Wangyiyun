@@ -1,7 +1,8 @@
-import * as React from 'react';
+import  React,{useState} from 'react';
 import './MusicCenter.scss';
 import { Link } from 'react-router-dom';
-const MusicCenter = (props:any,ref:any) => {
+const MusicCenter = (props:any,ref: any) => {
+
     const [movex,setMovex] = React.useState<number>(0);
     // 判断是否离开可移动区间
     const [moveStatus, setMoveStatus] = React.useState<boolean>(false);
@@ -14,6 +15,7 @@ const MusicCenter = (props:any,ref:any) => {
     const [ended, setEnded] = React.useState<boolean>(false); // 播放是否结束
     const [musicLength, setMusicLength] = React.useState<string>('00:00'); // 音乐总时长
     const [nowLength, setNowLength] = React.useState<string>('00:00'); // 当前进度
+    const [getAudioContent, setAudioContent] = useState<AudioContext>(new AudioContext()); // 创建音波
     // 监听页面鼠标抬起事件
     React.useEffect(() => {
         // console.log(props,'prop');
@@ -24,6 +26,9 @@ const MusicCenter = (props:any,ref:any) => {
                     // console.log(musictime, 'llll===')
                     setMusicLength(getMusictime(audioRef.current!.duration));
                     audioRef.current!.volume = 0.5;
+                    
+                    
+                    
                 }
                 // 设置音量
             }
@@ -188,7 +193,9 @@ const MusicCenter = (props:any,ref:any) => {
             {/* audio组件 */}
             <div className="audioBox">
                 <audio controls={true} ref={audioRef} id="audio" onTimeUpdate={timeupdate} onEnded={endedMusic}
-                    src={props.audioUrl} />
+                    src={props.audioUrl}
+                    crossOrigin="anonymous"
+                     />
             </div>
         </div>
     );

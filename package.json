@@ -1,6 +1,7 @@
 {
   "name": "wangyiyun",
   "version": "0.1.0",
+  
   "private": true,
   "dependencies": {
     "@loadable/component": "^5.10.2",
@@ -49,7 +50,9 @@
     "push": "git push",
     "start": "node scripts/start.js --https",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js --env=jsdom"
+    "test": "node scripts/test.js --env=jsdom",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "devDependencies": {
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
@@ -73,6 +76,7 @@
     "compression-webpack-plugin": "1.1.12",
     "fast-css-loader": "^1.0.2",
     "fast-sass-loader": "^1.5.0",
+    "gh-pages": "^2.1.1",
     "happypack": "^5.0.1",
     "http-proxy-middleware": "^0.19.1",
     "node-sass": "^4.12.0",

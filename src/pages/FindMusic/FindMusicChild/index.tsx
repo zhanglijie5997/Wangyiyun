@@ -35,7 +35,7 @@ const FindMusicList: PagesType[] =[
     {   // 歌手
         classname: "singer",
         component: Singer,
-        name: "主播电台",
+        name: "视频播放器",
         to: "/Singer",
     },
     {   // 新碟上架
