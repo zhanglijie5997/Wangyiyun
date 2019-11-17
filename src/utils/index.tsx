@@ -48,3 +48,17 @@ export const throttle = (fn: (event: any) => void, time: number) => {
         }
     }
 }
+
+/**
+ * Canvas高清分辨路显示模糊问题
+ * @param context 屏幕大小
+ */
+export const canvasRatio = (context: any) => {
+    const backingStore = context.backingStorePixelRatio ||
+        context.webkitBackingStorePixelRatio ||
+        context.mozBackingStorePixelRatio ||
+        context.msBackingStorePixelRatio ||
+        context.oBackingStorePixelRatio ||
+        context.backingStorePixelRatio || 1;
+    return (window.devicePixelRatio || 1) / backingStore;
+}
