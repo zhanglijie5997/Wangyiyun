@@ -1,7 +1,28 @@
 .video {
+    position: relative;
     .videoRef {
-        //display: none;
+        display: none;
         width: 400px;
         // height: 300px;
+    }
+    .videoCanvas {
+        position: relative;
+    }
+    .canvasBox {
+        position: relative;
+    }
+    .videoControls {
+        position: absolute;
+        bottom: 0px;
+        left: 0;
+        width: 100%;
+        height: 40px;
+        line-height: 32px;
+        display: flex;
+        i {
+            &:nth-child(2) {
+                margin-left: 75%;
+            }
+        }
     }
 }

@@ -21,6 +21,7 @@ const Video = (props: any,ref: any) => {
         poster: "", // 背景logo
         preload: "auto", // 是否在页面加载后载入视频, auto指示一旦页面加载，则开始加载音频/视频。 metadata指示当页面加载后仅加载音频/视频的元数据。 none指示页面加载后不应加载音频/视频。
     }); // video实例方法
+    const [playing, setPlaying] = useState<boolean>(false)
     const [canvasSize, setCanvasSize] = useState<{width: string, height: string}>({width: `400`, height: `225`}); // canvas大小
     const videoRef:RefObject<HTMLVideoElement> = useRef(null); // video 标签内容
     const canvasRef: RefObject<HTMLCanvasElement> = useRef(null); // canvas 画布
@@ -54,21 +55,27 @@ const Video = (props: any,ref: any) => {
         const reqDefault = requestAnimationFrame(requestAnimateFrameFn);
         VideoGroup();
         canvasDefault();
+        
         return () => window.cancelAnimationFrame(reqDefault)
     }, []);
     // 获取video数据
     const VideoGroup = useCallback(async () => {
         const data = await videoGroup();
+        console.log(data[0].data.urlInfo.url, `---data---`);
         await setVideoGroup(data[0].data.urlInfo.url);
     }, []);
 
     // requestAnimateFrame 回掉函数
     const requestAnimateFrameFn = useCallback(() => {
-        const ctx = canvasRef.current!.getContext("2d");
-        const ratio = canvasRatio(ctx);
-        ctx!.drawImage(videoRef.current!, 0, 0, 400 * ratio, 225 * ratio);
-        ctx!.scale(ratio, ratio);
-        const reqFnDefault = requestAnimationFrame(requestAnimateFrameFn);
+        let reqFnDefault: number = -1;
+        if(canvasRef.current) {
+            const ctx = canvasRef.current ? canvasRef.current.getContext("2d") : null;
+            const ratio = canvasRatio(ctx);
+        
+            ctx!.drawImage(videoRef.current!, 0, 0, 400 * ratio, 225 * ratio);
+            ctx!.scale(ratio, ratio);   
+            reqFnDefault = requestAnimationFrame(requestAnimateFrameFn);
+        }
         return () => (cancelAnimationFrame(reqFnDefault))
     },[])
     // 进入时就绘制
@@ -90,11 +97,32 @@ const Video = (props: any,ref: any) => {
     const playVideo = (): void  => { videoRef.current!.play() };
     // 暂停视频
     const pause = (): void => { videoRef.current!.pause()};
+    useEffect(() => {
+        if (playing) {
+            playVideo();
+        } else {
+            pause()
+        }
+    },[playing]);
+    // 播放音频
+    const changePlayStatus = useCallback(() => {
+        setPlaying(!playing);
+    },[playing]);
+    
     return (
         <div className="video">
-            <canvas id="videoCanvas" ref={canvasRef} width={canvasSize.width} height={canvasSize.height} style={{ width: `${canvasSize.width}px`,height: `${canvasSize.height}px`  }}>您的浏览器不支持canvas</canvas>
+            <div className="canvasBox" style={{ width: canvasSize.width + `px`,height: canvasSize.height + `px`  }}>
+                <canvas id="videoCanvas" ref={canvasRef} width={canvasSize.width} height={canvasSize.height} style={{ width: `${canvasSize.width}px`, height: `${canvasSize.height}px` }}>您的浏览器不支持canvas</canvas>
+                <div className="videoControls">
+                    <i className={["iconfont", playing ? "icon-zanting-copy":"icon-kaishi-copy"].join(" ")} onClick={changePlayStatus}/>
+                    <i className={["iconfont icon-yinliang"].join(" ")} />
+                    <i className={["iconfont icon-quanping"].join(" ")} />
+                    <i />
+                </div>
+            </div>
             <video src={getVideoGroup} controls={true} ref={videoRef} className="videoRef" 
                    muted={getVideoObj.muted} poster={getVideoObj.poster} preload={getVideoObj.preload}>您的浏览器不支持video标签</video>
+            
         </div>
     );
 }
