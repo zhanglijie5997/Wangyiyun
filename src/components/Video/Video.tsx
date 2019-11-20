@@ -25,13 +25,16 @@ const Video = (props: any,ref: any) => {
     const [canvasSize, setCanvasSize] = useState<{width: string, height: string}>({width: `400`, height: `225`}); // canvas大小
     const videoRef:RefObject<HTMLVideoElement> = useRef(null); // video 标签内容
     const canvasRef: RefObject<HTMLCanvasElement> = useRef(null); // canvas 画布
+    const [videoDuration, setVideoDuration] = useState<string>('00:00'); // 音乐总时长
+    const [videoTargetTime, setVideoTargetTime] = useState<string>(`00:00`); // 当前播放时长
     // video 方法
-    const setVideoAttr: Map<string, (arg0: number) => void> = new Map([
+    const setVideoAttr: Map<string, (arg0: number | null) => any> = new Map([
         ["playbackRate", (speed: number) => videoRef.current!.playbackRate = speed], // 设置播放速度
         ["duration", () => videoRef.current!.duration], // 获取视频时长
         ["networkState", () => videoRef.current!.networkState], // 媒体网络状态 0 未初始化 1 是活动的且已选取资源，但并未使用网络 2 浏览器正在下载数据 3 未找到音频/视频来源
         ["duration", () => videoRef.current!.duration], // 获取视频时长
-        ["duration", () => videoRef.current!.played.start(0) + videoRef.current!.played.end(0)], // 获得视频中以秒计的首段已播放的范围
+        ["currentTime", () => videoRef.current!.currentTime], // 获取当前播放时间长度
+        ["nowDuration", () => videoRef.current!.played.start(0) + videoRef.current!.played.end(0)], // 获得视频中以秒计的首段已播放的范围
         ["readyState", () => videoRef.current!.readyState], // 返回视频的当前就绪状态。0 没有关于音频/视频是否就绪的信息 1 关于音频/视频就绪的元数据 2 关于当前播放位置的数据是可用的，但没有足够的数据来播放下一帧/毫秒 3 当前及至少下一帧的数据是可用的 4 可用数据足以开始播放
     ]);
     // video 方法
@@ -55,15 +58,28 @@ const Video = (props: any,ref: any) => {
         const reqDefault = requestAnimationFrame(requestAnimateFrameFn);
         VideoGroup();
         canvasDefault();
-        
         return () => window.cancelAnimationFrame(reqDefault)
     }, []);
+    useEffect(() => {
+        console.log(videoDuration, '---lll---');
+    },[videoDuration])
     // 获取video数据
     const VideoGroup = useCallback(async () => {
-        const data = await videoGroup();
+        const data = await videoGroup()
         console.log(data[0].data.urlInfo.url, `---data---`);
-        await setVideoGroup(data[0].data.urlInfo.url);
-    }, []);
+        setVideoGroup(data[0].data.urlInfo.url);
+        await setTimeout(() => {
+            console.log(setVideoAttr.get("duration")!(0));
+            const time: number = setVideoAttr.get("duration")!(0).toFixed(2);
+            const minute: string = time / 60 < 10 ? `0${Math.floor(time / 60)}` : `${Math.floor(time / 60) }`;
+            console.log(minute, '---kk--- minute----')
+            const second: string = `${ +(time - parseInt(minute, 10) * 60).toFixed(2) < 10 ? 
+                (time - parseInt(minute, 10) * 60).toFixed(0) : (time - parseInt(minute, 10) * 60).toFixed(0)}`;
+            console.log(second, '-----kk---second');
+            setVideoDuration(minute + ":" + second);
+            console.log(videoDuration, '????');
+        }, 200);
+    }, [getVideoGroup,videoDuration]);
 
     // requestAnimateFrame 回掉函数
     const requestAnimateFrameFn = useCallback(() => {
@@ -71,7 +87,6 @@ const Video = (props: any,ref: any) => {
         if(canvasRef.current) {
             const ctx = canvasRef.current ? canvasRef.current.getContext("2d") : null;
             const ratio = canvasRatio(ctx);
-        
             ctx!.drawImage(videoRef.current!, 0, 0, 400 * ratio, 225 * ratio);
             ctx!.scale(ratio, ratio);   
             reqFnDefault = requestAnimationFrame(requestAnimateFrameFn);
@@ -81,13 +96,14 @@ const Video = (props: any,ref: any) => {
     // 进入时就绘制
     const playAddEventListenerFn = useCallback(() => {
         const playDefault =  requestAnimationFrame(requestAnimateFrameFn);
+        console.log(setVideoAttr.get("currentTime")!(0), '---kkk---- 获取当前播放位置')
         return () => cancelAnimationFrame(playDefault);
     },[]);
-    const playFnMemo = useMemo(playAddEventListenerFn,[]);
+    // const playFnMemo = useMemo(playAddEventListenerFn,[]);
     // canvas 绘制视频
     const canvasDefault = useCallback(() => {
-        videoRef.current!.addEventListener("play",playFnMemo);
-        return () => videoRef.current!.removeEventListener("play", playFnMemo)
+        videoRef.current!.addEventListener("play", playAddEventListenerFn);
+        return () => videoRef.current!.removeEventListener("play", playAddEventListenerFn)
     },[])
     // 定义一些ref方法
     useImperativeHandle(ref,() => ({
@@ -118,6 +134,13 @@ const Video = (props: any,ref: any) => {
                     <i className={["iconfont icon-yinliang"].join(" ")} />
                     <i className={["iconfont icon-quanping"].join(" ")} />
                     <i />
+                </div>
+                {/* 进度条 */}
+                <div className="videoProgess">
+                    <span  className="videoProgessCache"/>
+                </div>
+                <div className="videoTime">
+                    {videoTargetTime}/{videoDuration}
                 </div>
             </div>
             <video src={getVideoGroup} controls={true} ref={videoRef} className="videoRef" 

@@ -17,12 +17,15 @@ import "./Router.scss"
 import LoginPopove from '../components/Login/LoginPopove/LoginPopove';
 import { connect } from "react-redux";
 import { ShowPopoveType } from 'src/components/Type/ReduxType';
+import actionsStore from 'src/redux/actions/actions';
 
 
 const mapStateToProps = (state: { showPopove: ShowPopoveType }) => ({
     showPopove: state.showPopove
 })
-
+const mapDispatch = (dispatch: any) => ({
+    setTargetPage: (page: string) => dispatch(actionsStore.setTargetPage(page))
+})
 
 class Router extends React.Component {
     public state: IRouterState;
@@ -49,17 +52,19 @@ class Router extends React.Component {
             defaultName: name
         });
         // 将Link存本地
-        // Storage.SessionStorage("path", name)
+        // Storage.SessionStorage("path", name);
+        this.props["setTargetPage"](path)
     }
 
     /**
      * 二级导航点击事件
      * @param name 二级导航样式
      */
-    public changeRouteFind = (name: string): void => {
+    public changeRouteFind = (name: string, path: string): void => {
         this.setState({
             findmusicLisDefaultName: name
-        })
+        });
+        this.props["setTargetPage"](path)
     }
 
     public async componentDidMount(): Promise<void> {
@@ -135,7 +140,7 @@ class Router extends React.Component {
             
             return (
                 // tslint:disable-next-line:jsx-no-lambda
-                <li key={index} onClick={() => this.changeRouteFind(item.classname)}>
+                <li key={index} onClick={() => this.changeRouteFind(item.classname, item.to)}>
                     <Link to={item.to} className={item.classname} >
                         <em className={`${this.state.findmusicLisDefaultName === item.classname ? 'linkSecendAddBg' : null}`}> {item.name}</em>
                     </Link>
@@ -187,4 +192,4 @@ class Router extends React.Component {
 }
 
 
-export default connect(mapStateToProps)(Router);
+export default connect(mapStateToProps, mapDispatch)(Router);

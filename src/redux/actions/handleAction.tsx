@@ -1,5 +1,5 @@
 import { handleActions, Action  } from "redux-actions";
-import { showPopove, token, user, loginType, toastMsg} from "../state/state";
+import { showPopove, token, user, loginType, toastMsg, targetPage} from "../state/state";
 import types from "../types/typs";
 
 import { IUser, IToastMsg } from 'src/components/Type/Type';
@@ -38,10 +38,16 @@ const toastReducer = handleActions<IToastMsg>({
     }
 },toastMsg)
 
+// 当前页面路由
+const targetPageReducer = handleActions<string>({
+    [types.TARGET_PAGE]: (state: string, action: Action<string>) => action.payload
+},targetPage)
+
 export default {
     loginTypeReducer,
     popoveReducer,
     toastReducer,
     tokenReducer,
     userReducer,
+    targetPageReducer
 }

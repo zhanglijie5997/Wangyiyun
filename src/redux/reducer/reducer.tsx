@@ -7,6 +7,7 @@ const rootReduce = combineReducers({
     toast        :   handleAction.toastReducer,
     token        :   handleAction.tokenReducer ,
     user         :   handleAction.userReducer,
+    targetPage   :   handleAction.targetPageReducer
     
 })
 

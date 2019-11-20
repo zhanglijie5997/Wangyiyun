@@ -10,24 +10,30 @@ import {connect  } from "react-redux";
 import { StaticContext, RouteComponentProps } from 'react-router';
 import './App.scss';
 import './static/fonts/iconfont.css'
+import actionsStore from './redux/actions/actions';
 
 
 
 const mapStateToProps =(state:any) => ({
-  toast  : state.toast
+  toast  : state.toast,
+  targetPage: state.targetPage
+});
+const mapDispatch = (dispatch: any) => ({
+  setTargetPage: (payload: string) => dispatch(actionsStore.setTargetPage(payload))
 })
-
 class App extends React.Component {
   public state: IAppState;
   constructor(props:any){
     super(props);
-    // console.log(props,'nnn')
+    console.log(props,'nnn')
+    // props.setTargetPage(props.location.pathname);
     this.state = {
       toastStatus:true , // toast状态
     }
   }
   public componentDidMount():void {
     // 
+    this.props["setTargetPage"](this.props['location'].pathname)
   }
   public render() {
     return (
@@ -39,10 +45,10 @@ class App extends React.Component {
           this.props['toast']['show'] ? <Toast />:null
         }  
 
-        <Music />
+        {this.props["targetPage"] !== "/Singer" ? <Music />:null} 
       </div>
     );
   }
 }
 
-export default withRouter<RouteComponentProps<any, StaticContext, any>,any>(connect(mapStateToProps)(App));
+export default withRouter<RouteComponentProps<any, StaticContext, any>,any>(connect(mapStateToProps, mapDispatch)(App));

@@ -10,6 +10,31 @@
     }
     .canvasBox {
         position: relative;
+        .videoProgess{
+            width: calc(100% - 190px);
+            height: 3px;
+            border-radius: 5px;
+            background: #f3f3f3;
+            position: absolute;
+            bottom: 22px;
+            left: 35px;
+            .videoProgessCache {
+                position: absolute;
+                left: 0;
+                top:0;
+                display: inline-block;
+                width: 20px;
+                height: 100%;
+                background: red;
+            }
+        }
+        .videoTime {
+            position: absolute;
+            bottom: 18px;
+            right: 75px;
+            color: #ffffff;
+            font-size: 12px;
+        }
     }
     .videoControls {
         position: absolute;

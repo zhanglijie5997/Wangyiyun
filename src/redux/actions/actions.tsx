@@ -17,7 +17,8 @@ const setPopoveState = createAction(types.POPOVE_STATE, (popove: ShowPopoveType)
 const setLoginType =createAction(types.LOGIN_TYPE,(payload:string) => payload)
 // 设置显示toast
 const setToastStatus = createAction(types.TOAST_STAUS, (payload: IToastMsg) => ({...payload}))
-
+// 设置当前页面
+const setTargetPage = createAction(types.TARGET_PAGE, (page: string) => page)
 
 const actionsStore = {
     setLoginType,
@@ -25,7 +26,7 @@ const actionsStore = {
     setToastStatus,
     setToken,
     setUser,
-    
+    setTargetPage,
 }
 
 export default actionsStore;
