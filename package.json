@@ -89,7 +89,7 @@
     "redux-thunk": "^2.3.0",
     "sass-loader": "^7.3.1",
     "scss": "^0.2.4",
-    "swiper": "^5.0.3",
+    "swiper": "^6.5.1",
     "typescript": "^3.5.3"
   },
   "jest": {
