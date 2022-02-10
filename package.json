@@ -79,7 +79,7 @@
     "gh-pages": "^2.1.1",
     "happypack": "^5.0.1",
     "http-proxy-middleware": "^0.19.1",
-    "node-sass": "^4.12.0",
+    "node-sass": "^7.0.0",
     "react-redux": "^7.1.0",
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
